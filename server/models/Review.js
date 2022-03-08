@@ -1,15 +1,24 @@
 const { default: mongoose } = require('mongoose');
 const { Schema, model } = require('mongoose');
 
-const postSchema = new Schema({
-    body: {
-      type: String,
-      maxlength: 200,
-      minlength: 5,
+const reviewSchema = new Schema({
+    body: String,
+    rating: {
+        type: Number,
+        min: 0,
+        max: 5,
     },
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
+    },
+    parentArtistFlag: {
+      Type: Boolean,
+      default: false,
+    },
+    parentArtistId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Artist',
     },
     dateCreated: {
       type: Date,
@@ -25,38 +34,41 @@ const postSchema = new Schema({
       type: Number,
       default: 0,
     },
-    isLiked: {
-      type: Boolean,
-      default: false,
-    },
-    likes: [
+    useful: [
       {
         type: Schema.Types.ObjectId, 
         ref: 'User',
       }
     ],
-    likeCount: Number,
+    usefulCount: {
+      type: Number,
+      default: 0,
+    },
     cringes: [
       {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'users'
       }
     ],
     cringeCount: {
       type: Number,
       default: 0,
     },
-    shareCount: {
-      type: Number,
-      default: 0,
-    },
-    imageFlag: {
-      type: Boolean, 
-      default: false,
+    imagesFlag: {
+        type: Boolean,
+        default: false,
     },
     image: String,
+    editFlag: {
+        type: Boolean,
+        default: false,
+    },
+    dateEdited: {
+        type: Date,
+        default: Date.now,
+    }
 });
 
-const Post = model('Post', postSchema);
+const Review = model('Review', reviewSchema);
 
-model.exports = Post;
+model.exports = Review;

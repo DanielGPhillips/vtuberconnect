@@ -1,69 +1,83 @@
+//React Import
 import React from 'react';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-  HttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+// Mui Component Import
+import Box from '@mui/material/Box'
+// Route Resources
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
+import Signin from './pages/Signin';
 import Login from './pages/Login';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Navbar from './components/Navbar'
+import Introduction from './pages/Introduction';
+import Vtubers from './pages/Vtubers';
+import Artists from './pages/Artists';
+import Tutorials from './pages/Tutorials';
+import ATools from './pages/ATools';
+import VTools from './pages/VTools';
+import About from './pages/About';
 
-const httpLink = createHttpLink({
-  uri: '/graphql',
-});
 
-const authLink = setContext((_, {headers}) => {
-  const token = localStorage.getItem('id_token');
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
+const drawerWidth = "240ox";
 
 function App() {
   return (
-      <ApolloProvider client={client}>
-        <Router>
-          <div className="app">
-            {/* <Header /> */}
-            <Navbar />
-              <Routes>
-                <Route 
-                  path="/" 
-                  element={<Home />} 
-                />
-                <Route 
-                  path="/login" 
-                  element={<Login />} 
-                />
-                <Route 
-                  path="/signup" 
-                  element={<Signup />} 
-                />
-                <Route 
-                  path="/profiles/:profileId" 
-                  element={<Profile />} 
-                />
-              </Routes>
-          </div>
-        </Router>
-      </ApolloProvider>
+    <Router>          
+      <Navbar />
+        <Box component="main" sx={{ flexGrow: 1, p: 4, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
+          <Routes>
+            <Route 
+              path="/" 
+              element={<Home />} 
+            />
+            <Route 
+              path="/login" 
+              element={<Login />} 
+            />
+            <Route 
+              path="/signup" 
+              element={<Signup />} 
+            />
+            <Route 
+              path="/signin" 
+              element={<Signin />} 
+            />
+            <Route 
+              path="/profiles/:profileId" 
+              element={<Profile />} 
+            />
+            <Route
+              path="/introduction"
+              element={<Introduction />}
+            />
+            <Route
+              path="/vtubers"
+              element={<Vtubers />}
+            />
+            <Route
+              path="/artists"
+              element={<Artists />}
+            />
+            <Route
+              path="/tutorials"
+              element={<Tutorials />}
+            />
+            <Route
+              path="/vtools"
+              element={<VTools />}
+            />
+            <Route
+              path="/atools"
+              element={<ATools />}
+            />
+            <Route
+              path="/about"
+              element={<About />}
+            />
+          </Routes>
+        </Box>          
+    </Router>      
   );
 }
 

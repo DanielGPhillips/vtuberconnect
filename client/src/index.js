@@ -1,34 +1,54 @@
+// Import React Resources
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import {BrowserRouter} from 'react-router-dom';
+//MUI Component Import
+import { ThemeProvider, createTheme } from '@mui/material';
 import { StyledEngineProvider } from '@mui/material/styles';
-// import './index.css';
+//Apollo Import
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+  HttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+//Resource Import
 import App from './App';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// WebVitals Import
 import reportWebVitals from './reportWebVitals';
 
-// import Navibar from "./components/Navibar";
-// import About from "./components/About";
-// import Contact from "./components/Contact";
-// import Portfolio from "./components/Portfolio";
-// import Resume from "./components/Resume";
+const theme = createTheme()
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, {headers}) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      {/* <Router> */}
-          {/* <Navibar /> */}
-          <App />
-
-          {/* Router Setup
-          <Routes>
-            <Route exact path="/" element={<About />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/resume" element={<Resume />} />
-          </Routes> */}
-      {/* </Router> */}
-    </StyledEngineProvider>
+    <ApolloProvider client={client}>
+        <StyledEngineProvider injectFirst>      
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>                
+        </StyledEngineProvider>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

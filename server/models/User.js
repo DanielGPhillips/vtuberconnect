@@ -14,16 +14,25 @@ const userSchema = new Schema({
         required: true,
         minlength: 6,
     },
+    fname: {
+        type: String,
+        required: true,
+    },
+    lname: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
         required: true,
         unique: true,
         match: [/.+@.+\..+/, 'Must match an email adress!']
     },
-    creationDate: {
+    dateCreated: {
         type: Date,
         default: Date.now
-    }
+    }, 
+    
 });
 
 userSchema.pre('save', async function (next) {
@@ -35,7 +44,7 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-profileSchema.methods.isCorrectPassword = async function (password) {
+userSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
 };
 

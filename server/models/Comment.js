@@ -1,33 +1,31 @@
 const { default: mongoose } = require('mongoose');
 const { Schema, model } = require('mongoose');
 
-const postSchema = new Schema({
+const commentSchema = new Schema({
     body: {
       type: String,
-      maxlength: 200,
-      minlength: 5,
     },
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
     },
+    parentPost: {
+      type: Schema.Types.ObjectId,
+      ref: 'Post',
+    },
     dateCreated: {
       type: Date,
       default: Date.now
     },
-    comments: [
+    subComments: [
       {
         type: Schema.Types.ObjectId, 
         ref: 'Comment',
       }
     ],
-    commentCount: {
+    subCommentCount: {
       type: Number,
       default: 0,
-    },
-    isLiked: {
-      type: Boolean,
-      default: false,
     },
     likes: [
       {
@@ -35,28 +33,35 @@ const postSchema = new Schema({
         ref: 'User',
       }
     ],
-    likeCount: Number,
+    likeCount: {
+      type: Number,
+      default: 0,
+    },
     cringes: [
       {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'users'
       }
     ],
     cringeCount: {
       type: Number,
       default: 0,
     },
-    shareCount: {
-      type: Number,
-      default: 0,
-    },
     imageFlag: {
-      type: Boolean, 
-      default: false,
+        type: Boolean,
+        default: false,
     },
     image: String,
+    editFlag: {
+        type: Boolean,
+        default: false,
+    },
+    dateEdited: {
+        type: Date,
+        default: Date.now,
+    }
 });
 
-const Post = model('Post', postSchema);
+const Comment = model('Comment', commentSchema);
 
-model.exports = Post;
+model.exports = Comment;

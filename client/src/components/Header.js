@@ -1,7 +1,7 @@
 import React from 'react';
-import './Header.css';
+import '../styles/Header.css';
 import MenuIcon from '@mui/icons-material/Menu';
-import VyceliumIcon from './vycelium-logo.png';
+import VyceliumIcon from '../vycelium-logo.png';
 import SearchIcon from '@mui/icons-material/Search';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import NotificationsIcon from '@mui/icons-material/Notifications';

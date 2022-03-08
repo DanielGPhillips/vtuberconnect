@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
+import { useTheme, styled, alpha } from '@mui/material/styles';
+import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -11,10 +11,28 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import HomeIcon from '@mui/icons-material/Home';
 import Avatar from '@mui/material/Avatar';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import MuiDrawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import SchoolIcon from '@mui/icons-material/School';
+import BrushIcon from '@mui/icons-material/Brush';
+import BuildIcon from '@mui/icons-material/Build';
+import PeopleIcon from '@mui/icons-material/People';
+import PaletteIcon from '@mui/icons-material/Palette';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import InfoIcon from '@mui/icons-material/Info';
+import {Link} from 'react-router-dom';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -80,6 +98,18 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+  
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+  
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -97,8 +127,10 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose} component= { Link } to="/">Home</MenuItem>
+      <MenuItem onClick={handleMenuClose} component= { Link } to="/profile">Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose} component= { Link } to="/account">My account</MenuItem>
+      <MenuItem onClick={handleMenuClose} component= { Link } to="/signout">Sign Out</MenuItem>
     </Menu>
   );
 
@@ -120,8 +152,14 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+        <IconButton size="large" aria-label='home' color='inherit' component= { Link } to="/">
+          <HomeIcon />
+        </IconButton>
+        <p>Home</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton size="large" aria-label="show 2 new mails" color="inherit" component= { Link } to="/messages">
+          <Badge badgeContent={2} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
@@ -132,6 +170,8 @@ export default function PrimarySearchAppBar() {
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
+          component= { Link } 
+          to="/notifcations"
         >
           <Badge badgeContent={17} color="error">
             <NotificationsIcon />
@@ -154,16 +194,112 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
+  const drawerWidth = 240;
+
+  const openedMixin = (theme) => ({
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
+  });
+
+  const closedMixin = (theme) => ({
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(${theme.spacing(8)} + 1px)`,
+    },
+  });
+
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  }));
+
+  const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+  })(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  }));
+
+  const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+      width: drawerWidth,
+      flexShrink: 0,
+      whiteSpace: 'nowrap',
+      boxSizing: 'border-box',
+      ...(open && {
+        ...openedMixin(theme),
+        '& .MuiDrawer-paper': openedMixin(theme),
+      }),
+      ...(!open && {
+        ...closedMixin(theme),
+        '& .MuiDrawer-paper': closedMixin(theme),
+      }),
+    }),
+  );
+
+  const SidebarItem = (props) => {
+    return (
+        <ListItemButton
+              key={props.text}
+              component={Link} to={props.link}
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                {props.icon}
+              </ListItemIcon>
+              <ListItemText primary={props.text} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+    )
+};
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ display: 'flex' }}>
+      <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2 }}
+            onClick={handleDrawerOpen}
+            sx={{
+              marginRight: 5,
+              ...(open && { display: 'none' }),
+            }}
           >
             <MenuIcon />
           </IconButton>
@@ -173,8 +309,19 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            Vycelium
           </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: 'none', sm: 'block' } }}
+            >
+              Discover
+            </Typography>
+          </Box>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -184,10 +331,13 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1 }}/>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
+            <IconButton size="large" aria-label='home' color='inherit'>
+              <HomeIcon />
+            </IconButton>
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit" component= { Link } to="/messages">
+              <Badge badgeContent={2} color="error">
                 <MailIcon />
               </Badge>
             </IconButton>
@@ -226,8 +376,29 @@ export default function PrimarySearchAppBar() {
           </Box>
         </Toolbar>
       </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          <SidebarItem text='Intro to Vtubing' icon={<SchoolIcon />} link={ '/vtubing-intro' }/>
+          <SidebarItem text='VTuber Directory' icon={<PeopleIcon />} link={ '/vtubers' }/>
+          <SidebarItem text='Artist Directory' icon={<PaletteIcon />} link={ '/artists' }/>
+          <SidebarItem text='Tutorials' icon={<LightbulbIcon />} link={ '/tutorials' }/>
+          
+        </List>
+        <Divider />
+        <List>
+          <SidebarItem text="Vtuber Tools" icon={<BuildIcon/>} link={ '/vtools' }/>
+          <SidebarItem text="Artist Tools" icon={<BrushIcon/>} link={ '/atools' }/>
+          <SidebarItem text='About Vycelium' icon={<InfoIcon />} link={ '/about' }/>
+        </List>
+      </Drawer>
       {renderMobileMenu}
       {renderMenu}
     </Box>
   );
-}
+};
