@@ -25,13 +25,18 @@ import Copyright from '../props/Copyright';
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function Login() {
     const [formState, setFormState] = useState({
         email: '',
         password: '',
     });
     
-    const [signIn, {error, data}] = useMutation(LOGIN_USER)
+    const [login, {error, data}] = useMutation(LOGIN_USER, {
+      update(proxy, result) {
+        console.log(result)
+      },
+      variables: formState
+    })
     
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -42,11 +47,11 @@ export default function SignIn() {
         });
     }
   
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
+        // const data = new FormData(event.currentTarget);
         try {
-            const { data } = signIn({
+            const { data } = await login({
                 variables: { ...formState },
             });
 
@@ -54,6 +59,11 @@ export default function SignIn() {
         } catch (e) {
             console.error(e);
         };
+
+        setFormState({
+          email: '',
+          password: '',
+        });
     };
 
 
@@ -98,20 +108,24 @@ export default function SignIn() {
                 required
                 fullWidth
                 id="email"
+                value={formState.email}
                 label="Email Address"
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={handleChange}
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 name="password"
+                value={formState.password}
                 label="Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleChange}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

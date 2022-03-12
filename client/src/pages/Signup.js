@@ -25,36 +25,45 @@ import Copyright from '../props/Copyright';
 const theme = createTheme();
 
 function SignUp() {
-  const [formState, setFormState] = useState({
-    username: '',
+  const [signUpInput, setFormState] = useState({
     email: '',
+    username: '',    
     password: '',
-  });
+    confirmPassword: '',    
+    });
 
-  const [addUser, {error, data}] = useMutation(ADD_USER);
+  const [signUp, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
 
     setFormState({
-      ...formState,
+      ...signUpInput,
       [name]: value,
     });
   };
-
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data =  new FormData(event.currentTarget); 
+    console.log(signUpInput);
     try {
-      const { data } = addUser({
-        variables: { ...formState },
+      await signUp({
+        variables: { 
+          signUpInput: {...signUpInput },
+        },
       });
 
-      Auth.login(data.addUser.token);
+      Auth.login(data.signUp.token);
     } catch (e) {
       console.error(e);
     }
+
+    setFormState({
+      email: '',
+      username: '',    
+      password: '',
+      confirmPassword: '',
+    })
   };
 
   return (
@@ -95,28 +104,45 @@ function SignUp() {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
                   name="email"
+                  value={signUpInput.email}
+                  label="Email Address"                  
                   autoComplete="email"
                   autoFocus
+                  onChange={handleChange}
+                />
+                <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                name="username"
+                value={signUpInput.username}
+                label="Username"
+                type="text"
+                onChange={handleChange}
                 />
                 <TextField
                   margin="normal"
                   required
                   fullWidth
+                  id="password"
                   name="password"
+                  value={signUpInput.password}
                   label="Password"
                   type="password"
-                  id="password"
+                  onChange={handleChange}
                 />
                 <TextField
                   margin="normal"
                   required
                   fullWidth
+                  id="confirmPassword"
                   name="confirmPassword"
+                  value={signUpInput.confirmPassword}
                   label="Confirm Password"
                   type="password"
-                  id="confirmPassword"
+                  onChange={handleChange}                  
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}

@@ -48,7 +48,8 @@ module.exports = {
             return profile;
         },
         
-        async createArtist(_, {artistInput: {}}) {
+        async createArtist(_, {artistInput: {}}, context) {
+            const user = checkAuth(context);
 
             const newArtist = new Artist({
                 userId: user.id,
@@ -72,8 +73,9 @@ module.exports = {
             return artist;
         },  
 
-        async createVtuber(_, {vtuberInput: {}}) {
-
+        async createVtuber(_, {vtuberInput: {}}, context) {
+            const user = checkAuth(context);
+            
             const newVtuber = new Vtuber({
                 userId: user.id,
                 links,

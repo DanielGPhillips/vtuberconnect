@@ -12,8 +12,8 @@ const typeDefs = gql`
   }
 
   input SignUpInput {
-    username: String!
     email: String!
+    username: String!
     password: String!
     confirmPassword: String!
   }
