@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="194.13321"
+   height="149.54655"
+   viewBox="0 0 51.364411 39.567525"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="VyLogo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="1.8576147"
+     inkscape:cx="0.80748717"
+     inkscape:cy="31.761162"
+     inkscape:window-width="2560"
+     inkscape:window-height="1417"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer3"
+     units="px" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Text 1"
+     transform="translate(-0.9004685,-8.4588792)">
+    <g
+       aria-label="VY"
+       id="text36551"
+       style="font-size:56.4444px;line-height:1.25;stroke-width:0.264583">
+      <path
+         d="m 25.115116,9.2491008 c -2.596442,-0.4515552 -5.587995,0.056444 -8.127993,-0.5079996 -0.05645,0 -0.112889,0.056444 -0.112889,0.1128888 -1.636888,6.321773 -2.088443,14.223989 -4.967107,26.41598 C 8.9155734,23.077979 9.4800174,11.732654 8.9155734,8.7975456 7.730241,8.5153236 1.7471345,8.3459904 0.9004685,9.3619896 v 0.056444 c 1.0724436,13.038657 3.2173308,25.964424 6.6039949,38.156415 1.1853324,0.395111 3.0479976,0.451555 4.6848856,0.451555 1.580443,0 2.935108,-0.225777 3.555997,-0.225777 3.612442,-13.095101 6.829772,-25.174203 9.36977,-38.5515262 z"
+         style="font-family:'Londrina Solid';-inkscape-font-specification:'Londrina Solid';fill:#ffffff"
+         id="path59511" />
+      <path
+         d="m 52.264881,8.7411012 c -0.451555,-0.056444 -1.241776,-0.1128888 -2.144887,-0.1128888 -1.975554,0 -4.571996,0.1128888 -5.926662,0.3951108 C 42.838666,12.071321 41.145334,18.562427 39.621336,21.271758 38.26667,18.449538 36.008894,12.240654 35.275117,8.9104344 34.428451,8.5153236 33.52534,8.4588792 32.62223,8.4588792 c -1.636888,0 -3.33022,0.3386664 -4.854219,0.3386664 1.523999,6.3782174 5.475107,12.8693234 7.111995,19.4733184 v 0.112889 c -2.652887,6.603995 -5.418663,13.433767 -7.394217,19.529762 h 0.112889 c 0.451555,0.05645 0.903111,0.05645 1.354666,0.05645 1.749776,0 3.72533,-0.169333 5.305774,-0.169333 0.507999,0 0.959554,0 1.41111,0.05644 C 40.18578,34.592637 48.087996,22.287757 52.264881,8.7975456 Z"
+         style="font-family:'Londrina Solid';-inkscape-font-specification:'Londrina Solid';fill:#ffffff"
+         id="path59513" />
+    </g>
+  </g>
+</svg>

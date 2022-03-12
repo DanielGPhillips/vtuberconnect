@@ -2,11 +2,6 @@ const { default: mongoose } = require('mongoose');
 const { Schema, model } = require('mongoose');
 
 const postSchema = new Schema({
-    body: {
-      type: String,
-      maxlength: 200,
-      minlength: 5,
-    },
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
@@ -15,6 +10,7 @@ const postSchema = new Schema({
       type: Date,
       default: Date.now
     },
+    body: String,
     comments: [
       {
         type: Schema.Types.ObjectId, 
@@ -36,6 +32,10 @@ const postSchema = new Schema({
       }
     ],
     likeCount: Number,
+    causedCringe: {
+      type: Boolean,
+      default: false
+    },
     cringes: [
       {
       type: Schema.Types.ObjectId,

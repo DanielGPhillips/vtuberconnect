@@ -1,4 +1,7 @@
+// Import React
 import React, {useState} from 'react';
+import { Link as RouterLink, MemoryRouter } from 'react-router-dom';
+//Import MUI Components
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,11 +15,13 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as RouterLink, MemoryRouter } from 'react-router-dom';
-import Auth from '../utils/auth';
-import { SIGNIN_USER } from '../utils/mutations';
-import Copyright from '../props/Copyright';
+//Import Apollo
 import { useMutation } from '@apollo/client';
+// Import Assets
+import Auth from '../utils/auth';
+import { LOGIN_USER } from '../utils/mutations';
+import Copyright from '../props/Copyright';
+
 
 const theme = createTheme();
 
@@ -26,7 +31,7 @@ export default function SignIn() {
         password: '',
     });
     
-    const [signIn, {error, data}] = useMutation(SIGNIN_USER)
+    const [signIn, {error, data}] = useMutation(LOGIN_USER)
     
     const handleChange = (event) => {
         const { name, value } = event.target;

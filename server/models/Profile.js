@@ -6,11 +6,11 @@ const profileSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
-    profileImage: {
+    profilePicture: {
         type: String,
         default: "https://"
     },
-    bannerImage: {
+    profileBanner: {
         type: String,
         default: "https://"
     },
@@ -19,7 +19,7 @@ const profileSchema = new Schema({
         default: false,
     },
     vtuberId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: 'Vtuber',
     },
     artist: {
@@ -33,10 +33,7 @@ const profileSchema = new Schema({
     primaryTag: String,
     primaryPlatform: String,
     primaryLanguage: String,
-    about: {
-        type: String,
-        default: "This user has chosen to stay mysterious."
-    },
+    about: String,
     followers: [
         {
         type: Schema.Types.ObjectId,
@@ -63,9 +60,6 @@ const profileSchema = new Schema({
             ref: 'Conversation'
         }
     ],
-    associatedTags: Array,
-    likeCount: Number,
-    cringeCount: Number,
 });
 
 const Profile = model('Profile', profileSchema);

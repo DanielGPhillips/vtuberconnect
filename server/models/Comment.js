@@ -2,9 +2,6 @@ const { default: mongoose } = require('mongoose');
 const { Schema, model } = require('mongoose');
 
 const commentSchema = new Schema({
-    body: {
-      type: String,
-    },
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
@@ -17,6 +14,9 @@ const commentSchema = new Schema({
       type: Date,
       default: Date.now
     },
+    body: {
+      type: String,
+    },
     subComments: [
       {
         type: Schema.Types.ObjectId, 
@@ -27,6 +27,10 @@ const commentSchema = new Schema({
       type: Number,
       default: 0,
     },
+    isliked: {
+      type: Boolean,
+      default: false,
+    },
     likes: [
       {
         type: Schema.Types.ObjectId, 
@@ -36,6 +40,10 @@ const commentSchema = new Schema({
     likeCount: {
       type: Number,
       default: 0,
+    },
+    causedCringe: {
+      type: Boolean,
+      default: false,
     },
     cringes: [
       {

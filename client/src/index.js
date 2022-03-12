@@ -19,7 +19,32 @@ import App from './App';
 // WebVitals Import
 import reportWebVitals from './reportWebVitals';
 
-const theme = createTheme()
+const theme = createTheme ({
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#ff6800',
+    },
+    secondary: {
+      main: '#FFB27E',
+    },
+    error: {
+      main: '#f44336',
+    },
+  },
+  // palette: {
+  //   type: 'dark',
+  //   primary: {
+  //     main: '#ff6800',
+  //   },
+  //   secondary: {
+  //     main: '#FFB27E',
+  //   },
+  //   error: {
+  //     main: '#f44336',
+  //   },
+  // },
+});
 
 const httpLink = createHttpLink({
   uri: '/graphql',

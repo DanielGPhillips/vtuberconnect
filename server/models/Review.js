@@ -2,21 +2,11 @@ const { default: mongoose } = require('mongoose');
 const { Schema, model } = require('mongoose');
 
 const reviewSchema = new Schema({
-    body: String,
-    rating: {
-        type: Number,
-        min: 0,
-        max: 5,
-    },
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
     },
-    parentArtistFlag: {
-      Type: Boolean,
-      default: false,
-    },
-    parentArtistId: {
+    parentArtist: {
       type: Schema.Types.ObjectId,
       ref: 'Artist',
     },
@@ -24,25 +14,29 @@ const reviewSchema = new Schema({
       type: Date,
       default: Date.now
     },
-    comments: [
-      {
-        type: Schema.Types.ObjectId, 
-        ref: 'Comment',
-      }
-    ],
-    commentCount: {
-      type: Number,
-      default: 0,
+    rating: {
+        type: Number,
+        min: 0,
+        max: 5,
     },
-    useful: [
+    body: String,
+    isliked: {
+      type: Boolean,
+      default: false,
+    },
+    likes: [
       {
         type: Schema.Types.ObjectId, 
         ref: 'User',
       }
     ],
-    usefulCount: {
+    likeCount: {
       type: Number,
       default: 0,
+    },
+    causedCringe: {
+      type: Boolean,
+      default: false,
     },
     cringes: [
       {

@@ -1,5 +1,8 @@
 
-import * as React from 'react';
+// Import React
+import React from 'react';
+import {Link} from 'react-router-dom';
+// Import MUI Components
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -16,8 +19,14 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import PeopleIcon from '@mui/icons-material/People';
+import PaletteIcon from '@mui/icons-material/Palette';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import InfoIcon from '@mui/icons-material/Info';
+import BrushIcon from '@mui/icons-material/Brush';
+import BuildIcon from '@mui/icons-material/Build';
+import SchoolIcon from '@mui/icons-material/School';
+
 
 const drawerWidth = 240;
 
@@ -87,6 +96,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function MiniDrawer() {
+  
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -98,10 +108,35 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
+  const SidebarItem = (props) => {
+    return (
+        <ListItemButton
+              key={props.text}
+              component={Link} to={props.link}
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                {props.icon}
+              </ListItemIcon>
+              <ListItemText primary={props.text} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+    )
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      {/* <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -119,7 +154,7 @@ export default function MiniDrawer() {
             Mini variant drawer
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
@@ -128,53 +163,21 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItemButton
-              key={text}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          ))}
+          <SidebarItem text='Intro to Vtubing' icon={<SchoolIcon />} link={ '/vtubing-intro' }/>
+          <SidebarItem text='VTuber Directory' icon={<PeopleIcon />} link={ '/vtubers' }/>
+          <SidebarItem text='Artist Directory' icon={<PaletteIcon />} link={ '/artists' }/>
+          <SidebarItem text='Tutorials' icon={<LightbulbIcon />} link={ '/tutorials' }/>          
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItemButton
-              key={text}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          ))}
+          <SidebarItem text="Vtuber Tools" icon={<BuildIcon/>} link={ '/vtools' }/>
+          <SidebarItem text="Artist Tools" icon={<BrushIcon/>} link={ '/atools' }/>
+          <SidebarItem text='About Vycelium' icon={<InfoIcon />} link={ '/about' }/>
         </List>
       </Drawer>
+      {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            
+      </Box> */}
     </Box>
   );
-}
+};

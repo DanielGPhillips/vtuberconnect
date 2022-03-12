@@ -6,7 +6,7 @@
 Vycelium is a social-media application designed for the Virtual YouTuber Lifestyle.  It's target audience is VTubers, Artists, and fans of VTubers. 
 ## Table of Contents
 - [Technologies](#technologies)
-- [Deployment](#deployment)@
+- [Deployment](#deployment)
 - [Using Vycelium Locally](#using_vycelium_locally)
 - [Author](#author)
 - [Questions](#questions_or_feedback)

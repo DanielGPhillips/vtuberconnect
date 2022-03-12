@@ -1,13 +1,25 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Box, Typography } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material';
 
-const Home = () => {
-  // const { loading, data } = useQuery(QUERY_PROFILES);
-  // const profiles = data?.profiles || [];
-
+const theme = createTheme ({
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#ff6800',
+    },
+    secondary: {
+      main: '#FFB27E',
+    },
+    error: {
+      main: '#f44336',
+    },
+  }
+});
+export default function Home() {
   return (
-    <Box>
+    <ThemeProvider theme={theme}>
       <Box>
         {/* Carousel */}
         <Typography variant='h6'>Carousel</Typography>
@@ -20,8 +32,7 @@ const Home = () => {
         {/* Post Feed from followed users*/}
         <Typography variant='h6'>Followed Feed</Typography>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 };
 
-export default Home;

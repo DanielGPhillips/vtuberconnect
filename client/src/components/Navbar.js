@@ -1,4 +1,7 @@
+//React Import
 import * as React from 'react';
+import {Link} from 'react-router-dom';
+// MUI Import
 import { useTheme, styled, alpha } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -31,7 +34,10 @@ import PeopleIcon from '@mui/icons-material/People';
 import PaletteIcon from '@mui/icons-material/Palette';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import InfoIcon from '@mui/icons-material/Info';
-import {Link} from 'react-router-dom';
+import SvgIcon from '@mui/material/SvgIcon';
+//Asset Import
+import VyLogo from '../props/VyLogo';
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -74,10 +80,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function NavbarCombo() {
+  const theme = useTheme();
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+  const [open, setOpen] = React.useState(false);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -97,9 +106,6 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
   
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -153,7 +159,9 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem>
         <IconButton size="large" aria-label='home' color='inherit' component= { Link } to="/">
-          <HomeIcon />
+          <SvgIcon>
+            <VyLogo/>
+          </SvgIcon>
         </IconButton>
         <p>Home</p>
       </MenuItem>
@@ -301,7 +309,9 @@ export default function PrimarySearchAppBar() {
               ...(open && { display: 'none' }),
             }}
           >
-            <MenuIcon />
+            <SvgIcon color='white'>
+              <VyLogo />
+            </SvgIcon>
           </IconButton>
           <Typography
             variant="h6"
@@ -312,16 +322,6 @@ export default function PrimarySearchAppBar() {
             Vycelium
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ flexGrow: 1 }}>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: 'none', sm: 'block' } }}
-            >
-              Discover
-            </Typography>
-          </Box>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -333,7 +333,7 @@ export default function PrimarySearchAppBar() {
           </Search>
           <Box sx={{ flexGrow: 1 }}/>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label='home' color='inherit'>
+            <IconButton size="large" aria-label='home' color='inherit' component= { Link } to="/">
               <HomeIcon />
             </IconButton>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit" component= { Link } to="/messages">
