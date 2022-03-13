@@ -20,6 +20,7 @@ import Tutorials from './pages/Tutorials';
 import ATools from './pages/ATools';
 import VTools from './pages/VTools';
 import About from './pages/About';
+import ProfileGenerator from './pages/ProfileGenerator';
 
 const theme = createTheme ({
   palette: {
@@ -56,6 +57,14 @@ function App() {
               <Route 
                 path="/signup" 
                 element={<Signup />} 
+              />
+              <Route 
+                path="/profilegen" 
+                element={<ProfileGenerator />} 
+              />
+              <Route 
+                path="/profile" 
+                element={<Profile />} 
               />
               <Route 
                 path="/signin" 

@@ -15,12 +15,12 @@ import { ADD_NAME } from '../utils/mutations'
 
 
 function ProfileGenerator() {
-    const [formState, setFormState] = useState({
-        firstName: '',
-        lastName: '',
-    });
+    // const [formState, setFormState] = useState({
+    //     firstName: '',
+    //     lastName: '',
+    // });
 
-    const [addName, {error, data}] = useMutation(ADD_NAME);
+    // const [addName, {error, data}] = useMutation(ADD_NAME);
     
     const handleNameSubmit = (event) => {
         event.preventDefault()
@@ -34,7 +34,7 @@ function ProfileGenerator() {
                     <Typography component='h1' variant='h5'>
                         Let's Make a Profile!    
                     </Typography>
-                    <Box component='form' noValidate onSubmit={handleNameSubmit} sx={{ mt: 1}}>
+                    <Box component='form' noValidate onSubmit={handleNameSubmit} sx={{ mt: 1, alignItems: 'center',}}>
                         <Typography component="h2" variant="h6">
                             What's Your Name?
                         </Typography>

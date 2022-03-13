@@ -8,14 +8,20 @@ import format from "date-fns/format";
 // import { getFollowers, getFollowings } from "../redux/followSlice";
 // import { getProfile } from "../redux/authSlice";
 //MUI Component Import
+import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Badge from '@mui/material/Badge';
+import Avatar from '@mui/material/Avatar';
+import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material';
+import { Divider, useTheme } from '@mui/material';
+import { styled } from '@mui/material/styles';
 //Icon Import
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -23,210 +29,118 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import DateRangeIcon from "@mui/icons-material/DateRange";
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 //Resource Import
 import Post from "../components/Post";
+import zIndex from '@mui/material/styles/zIndex';
 // import { followAccount, followingAccount } from "../api";
+
+const Input = styled('input')({
+display: 'none',
+});
 
 
 export default function Profile() {
-  const theme = useTheme();
-  const { id } = useParams();
-  // const dispatch = useDispatch();
-  // const { profile, status } = useSelector((state) => state.auth);
-  // const { followingStatus, followerStatus, followers, followings } =
-  //   useSelector((state) => state.follow);
-  // const { _id } = JSON.parse(localStorage.getItem("login"));
+    const theme = useTheme();
+    return (
+        <Paper elevation={0}>
+            <Grid container direction="column" alignItems="center" justifyContent="center">
+                {/* Back Button top left corner of banner*/}
+                <Box sx={{ width:'650px', height:'120px'}}>
+                    <Stack direction="row" spacing={0}>
+                    {/* Banner Image  */}
+                    <Box component="img" sx={{}} alt="Porfile Banner Image" src='https://via.placeholder.com/650x120' />
+                    {/* Button to change Banner Image */}
+                        <label htmlFor="icon-button-file">
+                            <Input accept="image/*" id="icon-button-file" type="file" />
+                            <IconButton color="primary" aria-label="upload picture" component="span" edge="end" sx={{position:'relative', top:'80px', left:'-45px', zIndex:'2'}}>
+                                <PhotoCamera />
+                            </IconButton>
+                        </label>
+                    </Stack>
+                </Box >
+                <Paper elevation={2} bm={6} sx={{ width:'650px', height:'150px'}}>
+                    {/* Begin Quasi Header */}
+                    <Stack direction="row" spacing={0} alignItems='start' padding={0}>
+                        {/* Profile Avatar */}
+                        <Badge 
+                            overlap="circular"
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
+                            badgeContent={
+                                <label htmlFor="icon-button-file">
+                                    <Input accept="image/*" id="icon-button-file" type="file" />
+                                    <IconButton color="primary" aria-label="upload picture" component="span">
+                                        <PhotoCamera />
+                                    </IconButton>
+                                </label>
+                            }
+                        >
+                            <Avatar 
+                                alt='User name profile picture'
+                                src='https://via.placeholder.com/124'
+                                sx={{ width: '124px', height:'124px', marginTop:'5px', marginLeft:'5px'}}
+                                >        
+                            </Avatar>
+                        </Badge>                             
+                        <Stack direction="column" spacing={0} padding= {0}>                     
+                            <Stack direction="row" spacing={2} padding={1} margin={0} alignItems='flex-start'>
+                                <Typography component="h2" variant='h6'>
+                                    <b>USERNAME</b>
+                                </Typography>
+                                {/* Pirmary Tag */}
+                                <Chip label="Primary Tag" color="primary" margin={0}/>
+                            </Stack>
+                            <Stack direction="row" spacing={2} padding={0} margin={0} alignItems='flex-start'>
+                                <Box></Box>
+                                <Typography ml={0} variant='subtitle2'>
+                                    -- Followers
+                                </Typography>
+                                <Typography ml={0} variant='subtitle2' >
+                                    -- Following
+                                </Typography>
+                            </Stack>
+                        </Stack>  
+                        <Box sx={{ width: '200px'}}></Box>
+                        <Stack direction="row" spacing={1} padding={1}>
+                            <IconButton color="primary" aria-label="main platform" size="medium">
+                                <YouTubeIcon />
+                            </IconButton>
+                            <Button variant="contained" size="small" padding='12px'>Follow</Button>
+                        </Stack>                        
+                    </Stack>
+                </Paper>
+                {/* End Quasi Header */}
+                {/* About Me/Links  */}
+                <Paper elevation={1} mt={8} padding={6} sx={{ width:'650px', height:'200px'}}>
+                    <Stack direction='column'>
+                        <Box>
+                            <Typography>
+                                This is a placeholder for that basic ass about me section that will be populated via the db.
+                            </Typography>
+                        </Box>
+                        <Divider />
+                        <Box>
+                            <Typography>
+                            This is a placeholder for the basic ass links someone wants to share...
+                            </Typography>                            
+                        </Box>
+                    </Stack>
+                    <Divider />
+                    <Post />
+                </Paper>
+                    {/* About Me */}
+                    {/* Social Media Links */}
+                {/* End About Me/Links */}
+                {/* Begin Quasi Tabbing Pagination */}
+                    {/* About universal */}
+                    {/* Feed universal */}
+                    {/* Portfolio artist and combo */}
+                    {/* Videos vtuber and combo */}
+                    {/* Lore vtuber and combo  */}
+                    {/* Fanart if vtuber and combo only */}
 
-  // useEffect(() => {
-  //   dispatch(getProfile(id));
-  // }, [dispatch, id]);
-
-  // useEffect(() => {
-  //   if (profile.userId) {
-  //     dispatch(getFollowers(profile.userId._id));
-  //     dispatch(getFollowings(profile.userId._id));
-  //   }
-  // }, [dispatch, profile.userId]);
-
-  // const handleFollow = async () => {
-  //   const responseFollow = await followAccount({
-  //     userId: profile.userId._id,
-  //     followerId: _id,
-  //   });
-  //   const responseFlwing = await followingAccount({
-  //     followingId: profile.userId._id,
-  //     userId: _id,
-  //   });
-  //   if (responseFollow) {
-  //     dispatch(getFollowers(id));
-  //   }
-  //   if (responseFlwing) {
-  //     dispatch(getFollowings(id));
-  //   }
-  // };
-
-  // function hideFollow() {
-  //   if (profile.userId) {
-  //     if (followings.length !== 0) {
-  //       return (
-  //         followings[0].followingId.includes(_id) || _id === profile.userId._id
-  //       );
-  //     }
-  //   }
-  // }
-
-  return (
-    <Box>
-      {/* <Box borderBottom="1px solid #ccc" padding="8px 20px">
-        <Grid container alignItems="center">
-          <Grid item sx={{ mr: "10px" }}>
-            <RouteLink to="/">
-              <IconButton>
-                <ArrowBackIcon />
-              </IconButton>
-            </RouteLink>
-          </Grid>
-
-          {status === "success" && (
-            <Grid item>
-              <Typography variant="h6">
-                {profile.userId && profile.userId && profile.userId.name}
-              </Typography>
-              <Typography sx={{ fontSize: "12px", color: "#555" }}>
-                {profile.posts && profile.posts.length} posts
-              </Typography>{" "}
             </Grid>
-          )}
-        </Grid>
-      </Box>
-      <Box textAlign="center">
-        {status === "loading" && <CircularProgress size={20} color="primary" />}
-      </Box>
-      {status === "success" && (
-        <Box height="90vh" sx={{ overflowY: "scroll" }}>
-          <Box position="relative">
-            <img
-              width="100%"
-              src={profile.backgroundImageUrl}
-              alt="background"
-            />
-            <Box
-              sx={{
-                position: "absolute",
-                top: 120,
-                left: 15,
-                background: "#eee",
-                borderRadius: "50%",
-              }}
-            >
-              <img width="150px" src={profile.profileImageUrl} alt="profile" />
-            </Box>
-          </Box>
-          <Box textAlign="right" padding="10px 20px">
-            <IconButton>
-              <MoreHorizIcon />
-            </IconButton>
-            <IconButton>
-              <MailOutlineIcon />
-            </IconButton>
-            {!hideFollow() && (
-              <Button
-                onClick={handleFollow}
-                size="small"
-                sx={{
-                  borderRadius: theme.shape.borderRadius,
-                  textTransform: "capitalize",
-                  padding: "6px 20px",
-                  background: "black",
-                  "&:hover": {
-                    background: "#333",
-                  },
-                }}
-                variant="contained"
-              >
-                Follow
-              </Button>
-            )}
-          </Box>
-          <Box padding="10px 20px">
-            <Typography variant="h6" sx={{ fontWeight: "500" }}>
-              {profile.userId && profile.userId.name}
-            </Typography>
-            <Typography sx={{ fontSize: "14px", color: "#555" }}>
-              @{profile.userId && profile.userId.handle}
-            </Typography>
-            <Typography fontSize="16px" color="#333" padding="10px 0">
-              {profile.bio}
-            </Typography>
-            <Box
-              display="flex"
-              alignItems="center"
-              padding="6px 0"
-              flexWrap="wrap"
-            >
-              <Box display="flex">
-                <LocationOnIcon htmlColor="#555" />
-                <Typography sx={{ ml: "6px", color: "#555" }}>
-                  {profile.location}
-                </Typography>
-              </Box>
-              <Box display="flex" marginLeft="1rem">
-                <InsertLinkIcon htmlColor="#555" />
-                <Link
-                  sx={{ textDecoration: "none", marginLeft: "6px" }}
-                  href={profile.website || "https:/wasifbaliyan.com"}
-                >
-                  {profile.website ? profile.website : "www"}
-                </Link>
-              </Box>
-              <Box display="flex" marginLeft="1rem">
-                <DateRangeIcon htmlColor="#555" />
-                <Typography sx={{ ml: "6px", color: "#555" }}>
-                  {profile.userId &&
-                    profile.userId &&
-                    profile.userId.createdAt &&
-                    format(new Date(profile.userId.createdAt), "MMM dd yyyy")}
-                </Typography>
-              </Box>
-            </Box>
-            <Box display="flex">
-              <Typography color="#555" marginRight="1rem">
-                <strong style={{ color: "black" }}>
-                  {followingStatus === "success" &&
-                    followings.length !== 0 &&
-                    followings[0].followingId.length}
-                </strong>
-                Following
-              </Typography>
-              <Typography color="#555" marginRight="1rem">
-                <strong style={{ color: "black" }}>
-                  {followerStatus === "success" &&
-                    followers.length !== 0 &&
-                    followers[0].followerId.length}
-                </strong>
-                Followers
-              </Typography>
-            </Box>
-          </Box>
-          <Box borderBottom="1px solid #ccc">
-            <Typography
-              display="inline-block"
-              variant="caption"
-              fontSize="16px"
-              marginX="1rem"
-              padding="6px 0"
-              fontWeight="500"
-              borderBottom={`4px solid ${theme.palette.primary.main}`}
-            >
-              Posts
-            </Typography>
-          </Box>
-          {profile.posts &&
-            profile.posts.map((post) => (
-              <Post key={post._id} post={post} profile={true} />
-            ))}
-        </Box>
-      )} */}
-    </Box>
-  );
+        </Paper>
+    );
 }
