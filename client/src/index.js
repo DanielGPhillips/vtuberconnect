@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import {BrowserRouter} from 'react-router-dom';
 //MUI Component Import
-import { ThemeProvider, createTheme } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { StyledEngineProvider } from '@mui/material/styles';
 //Apollo Import
 import {
@@ -21,7 +21,7 @@ import reportWebVitals from './reportWebVitals';
 
 const theme = createTheme ({
   palette: {
-    type: 'dark',
+    mode: 'dark',
     primary: {
       main: '#ff6800',
     },
@@ -32,18 +32,6 @@ const theme = createTheme ({
       main: '#f44336',
     },
   },
-  // palette: {
-  //   type: 'dark',
-  //   primary: {
-  //     main: '#ff6800',
-  //   },
-  //   secondary: {
-  //     main: '#FFB27E',
-  //   },
-  //   error: {
-  //     main: '#f44336',
-  //   },
-  // },
 });
 
 const httpLink = createHttpLink({
@@ -68,8 +56,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-        <StyledEngineProvider injectFirst>      
+        <StyledEngineProvider injectFirst>     
           <ThemeProvider theme={theme}>
+          <CssBaseline /> 
             <App />
           </ThemeProvider>                
         </StyledEngineProvider>

@@ -1,50 +1,58 @@
 // React Import
 import React from 'react';
-// Mui Component Import
-import Paper from '@mui/material/Paper';
+// MUI Component Import
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
-import TextField from '@mui/material/TextField';
-// import Input from '@mui/material/Input';
+import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-import styled from '@emotion/styled';
-// Mui Icon Import
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-
-const Input = styled('input')({
-    display: 'none',
-    });
+// MUI Icon Import
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import SentimentDissatisfied from'@mui/icons-material/SentimentDissatisfied';
+import ShareIcon from '@mui/icons-material/Share';
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+// Resource Import
 
 export default function Post() {
-  return (
-    <Paper elevation={3} sx={{ marginTop:'5px'}}>
-        <Grid container>
-            <Grid item xs={1}>
-                <Avatar sx={{ marginTop:'5px', marginLeft:'10px'}}></Avatar>
-            </Grid>
-            <Grid item xs={11}>
-                <TextField
-                id="outlined-textarea"
-                label=""
-                placeholder="Spread the word"
-                multiline
-                sx={{ width:'100%'}}
-                />
-                <Box  sx={{ justifyContent:'space-between', alignItems: 'center' }}>       
-                    <label htmlFor="icon-button-file">
-                        <IconButton color="primary" aria-label="upload picture" component="span">
-                            <Input accept="image/*" id="icon-button-file" type="file" />
-                            <PhotoCamera />
+    return (
+        <Card variant='outlined'>
+            <CardHeader
+                avatar={
+                    <Avatar></Avatar>
+                }
+                title="Username"
+                subheader="Time Posted"
+            />
+            <CardContent>
+                <Typography variant="body2">
+                    This is a placeholder for the post body text.
+                </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+                <Grid container direction='row'>
+                    <Grid item xs={4}>
+                        <IconButton aria-label="cheer this post">
+                            <FavoriteIcon />
                         </IconButton>
-                    </label>           
-                    <Button variant='contained' size='small' sx={{ float:'right', marginTop:'5px', marginRight:'5px'}}>Post</Button>
-                </Box>                
-            </Grid>
-        </Grid>        
-        
-    </Paper>
-  )
-};
-
+                        <IconButton aria-label="cringe this post">
+                            <SentimentDissatisfied />
+                        </IconButton>
+                        <IconButton aria-label="share this post">
+                            <ShareIcon />
+                        </IconButton>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Button color="secondary" endIcon={<ArrowDropDown />}> X Comments </Button>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <Button variant='contained'> Comment </Button>
+                    </Grid>
+                </Grid>
+            </CardActions>
+        </Card>
+    )
+}

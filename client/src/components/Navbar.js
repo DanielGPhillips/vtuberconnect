@@ -2,8 +2,8 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 // MUI Import
-import { useTheme, styled, alpha } from '@mui/material/styles';
-import MuiAppBar from '@mui/material/AppBar';
+import { createTheme, useTheme, styled, alpha } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -37,7 +37,6 @@ import InfoIcon from '@mui/icons-material/Info';
 import SvgIcon from '@mui/material/SvgIcon';
 //Asset Import
 import VyLogo from '../props/VyLogo';
-
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -81,7 +80,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavbarCombo() {
-  const theme = useTheme();
+  let theme = createTheme ({
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#ff6800',
+      },
+      secondary: {
+        main: '#FFB27E',
+      },
+      error: {
+        main: '#f44336',
+      },
+    },
+  });
+  
+  theme = useTheme();
   
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -107,13 +121,13 @@ export default function NavbarCombo() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
   
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  // const handleDrawerOpen = () => {
+  //   setOpen(true);
+  // };
   
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  // const handleDrawerClose = () => {
+  //   setOpen(false);
+  // };
   
 
   const menuId = 'primary-search-account-menu';
@@ -202,108 +216,108 @@ export default function NavbarCombo() {
     </Menu>
   );
 
-  const drawerWidth = 240;
+  // const drawerWidth = 240;
 
-  const openedMixin = (theme) => ({
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    overflowX: 'hidden',
-  });
+  // const openedMixin = (theme) => ({
+  //   width: drawerWidth,
+  //   transition: theme.transitions.create('width', {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  //   overflowX: 'hidden',
+  // });
 
-  const closedMixin = (theme) => ({
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    width: `calc(${theme.spacing(7)} + 1px)`,
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(${theme.spacing(8)} + 1px)`,
-    },
-  });
+  // const closedMixin = (theme) => ({
+  //   transition: theme.transitions.create('width', {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  //   overflowX: 'hidden',
+  //   width: `calc(${theme.spacing(7)} + 1px)`,
+  //   [theme.breakpoints.up('sm')]: {
+  //     width: `calc(${theme.spacing(8)} + 1px)`,
+  //   },
+  // });
 
-  const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  }));
+  // const DrawerHeader = styled('div')(({ theme }) => ({
+  //   display: 'flex',
+  //   alignItems: 'center',
+  //   justifyContent: 'flex-end',
+  //   padding: theme.spacing(0, 1),
+  //   // necessary for content to be below app bar
+  //   ...theme.mixins.toolbar,
+  // }));
 
-  const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  }));
+  // const AppBar = styled(MuiAppBar, {
+  //   shouldForwardProp: (prop) => prop !== 'open',
+  // })(({ theme, open }) => ({
+  //   zIndex: theme.zIndex.drawer + 1,
+  //   transition: theme.transitions.create(['width', 'margin'], {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  //   ...(open && {
+  //     marginLeft: drawerWidth,
+  //     width: `calc(100% - ${drawerWidth}px)`,
+  //     transition: theme.transitions.create(['width', 'margin'], {
+  //       easing: theme.transitions.easing.sharp,
+  //       duration: theme.transitions.duration.enteringScreen,
+  //     }),
+  //   }),
+  // }));
 
-  const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap',
-      boxSizing: 'border-box',
-      ...(open && {
-        ...openedMixin(theme),
-        '& .MuiDrawer-paper': openedMixin(theme),
-      }),
-      ...(!open && {
-        ...closedMixin(theme),
-        '& .MuiDrawer-paper': closedMixin(theme),
-      }),
-    }),
-  );
+  // const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  //   ({ theme, open }) => ({
+  //     width: drawerWidth,
+  //     flexShrink: 0,
+  //     whiteSpace: 'nowrap',
+  //     boxSizing: 'border-box',
+  //     ...(open && {
+  //       ...openedMixin(theme),
+  //       '& .MuiDrawer-paper': openedMixin(theme),
+  //     }),
+  //     ...(!open && {
+  //       ...closedMixin(theme),
+  //       '& .MuiDrawer-paper': closedMixin(theme),
+  //     }),
+  //   }),
+  // );
 
-  const SidebarItem = (props) => {
-    return (
-        <ListItemButton
-              key={props.text}
-              component={Link} to={props.link}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {props.icon}
-              </ListItemIcon>
-              <ListItemText primary={props.text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-    )
-};
+//   const SidebarItem = (props) => {
+//     return (
+//         <ListItemButton
+//               key={props.text}
+//               component={Link} to={props.link}
+//               sx={{
+//                 minHeight: 48,
+//                 justifyContent: open ? 'initial' : 'center',
+//                 px: 2.5,
+//               }}
+//             >
+//               <ListItemIcon
+//                 sx={{
+//                   minWidth: 0,
+//                   mr: open ? 3 : 'auto',
+//                   justifyContent: 'center',
+//                 }}
+//               >
+//                 {props.icon}
+//               </ListItemIcon>
+//               <ListItemText primary={props.text} sx={{ opacity: open ? 1 : 0 }} />
+//             </ListItemButton>
+//     )
+// };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
+    <Box color='primary' sx={{ display: 'flex' }}>
+      <AppBar position="fixed" open={open} enableColorOnDark>
+        <Toolbar color="primary">
           <IconButton
             size="large"
             edge="start"
             color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            aria-label="Vycelium Icon"
+            // onClick={handleDrawerOpen}
             sx={{
               marginRight: 5,
               ...(open && { display: 'none' }),
@@ -376,27 +390,6 @@ export default function NavbarCombo() {
           </Box>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          <SidebarItem text='Intro to Vtubing' icon={<SchoolIcon />} link={ '/vtubing-intro' }/>
-          <SidebarItem text='VTuber Directory' icon={<PeopleIcon />} link={ '/vtubers' }/>
-          <SidebarItem text='Artist Directory' icon={<PaletteIcon />} link={ '/artists' }/>
-          <SidebarItem text='Tutorials' icon={<LightbulbIcon />} link={ '/tutorials' }/>
-          
-        </List>
-        <Divider />
-        <List>
-          <SidebarItem text="Vtuber Tools" icon={<BuildIcon/>} link={ '/vtools' }/>
-          <SidebarItem text="Artist Tools" icon={<BrushIcon/>} link={ '/atools' }/>
-          <SidebarItem text='About Vycelium' icon={<InfoIcon />} link={ '/about' }/>
-        </List>
-      </Drawer>
       {renderMobileMenu}
       {renderMenu}
     </Box>

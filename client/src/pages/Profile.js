@@ -32,6 +32,7 @@ import DateRangeIcon from "@mui/icons-material/DateRange";
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 //Resource Import
+import PostCreate from "../components/PostCreate";
 import Post from "../components/Post";
 import zIndex from '@mui/material/styles/zIndex';
 // import { followAccount, followingAccount } from "../api";
@@ -45,22 +46,32 @@ export default function Profile() {
     const theme = useTheme();
     return (
         <Paper elevation={0}>
-            <Grid container direction="column" alignItems="center" justifyContent="center">
+            <Grid container direction="column">
                 {/* Back Button top left corner of banner*/}
-                <Box sx={{ width:'650px', height:'120px'}}>
-                    <Stack direction="row" spacing={0}>
-                    {/* Banner Image  */}
-                    <Box component="img" sx={{}} alt="Porfile Banner Image" src='https://via.placeholder.com/650x120' />
-                    {/* Button to change Banner Image */}
-                        <label htmlFor="icon-button-file">
-                            <Input accept="image/*" id="icon-button-file" type="file" />
-                            <IconButton color="primary" aria-label="upload picture" component="span" edge="end" sx={{position:'relative', top:'80px', left:'-45px', zIndex:'2'}}>
-                                <PhotoCamera />
-                            </IconButton>
-                        </label>
-                    </Stack>
-                </Box >
-                <Paper elevation={2} bm={6} sx={{ width:'650px', height:'150px'}}>
+                <Grid container>
+                    <Grid item>
+                        <Badge 
+                            overlap="circular"
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
+                            badgeContent={
+                                <label htmlFor="icon-button-file">
+                                    <Input accept="image/*" id="icon-button-file" type="file" />
+                                    <IconButton color="primary" aria-label="upload picture" component="span">
+                                        <PhotoCamera />
+                                    </IconButton>
+                                </label>
+                            }
+                        >
+                            <Box 
+                            component="img" 
+                            alt="Porfile Banner Image" 
+                            src='https://via.placeholder.com/650x120'
+                            sx={{ width:'100%'}}
+                            />
+                        </Badge>
+                    </Grid>
+                </Grid >
+                <Paper elevation={2} bm={6}>
                     {/* Begin Quasi Header */}
                     <Stack direction="row" spacing={0} alignItems='start' padding={0}>
                         {/* Profile Avatar */}
@@ -79,59 +90,61 @@ export default function Profile() {
                             <Avatar 
                                 alt='User name profile picture'
                                 src='https://via.placeholder.com/124'
-                                sx={{ width: '124px', height:'124px', marginTop:'5px', marginLeft:'5px'}}
+                                sx={{ width: '100px', height:'100px', marginTop:'5px', marginLeft:'5px'}}
                                 >        
                             </Avatar>
-                        </Badge>                             
-                        <Stack direction="column" spacing={0} padding= {0}>                     
-                            <Stack direction="row" spacing={2} padding={1} margin={0} alignItems='flex-start'>
-                                <Typography component="h2" variant='h6'>
-                                    <b>USERNAME</b>
-                                </Typography>
-                                {/* Pirmary Tag */}
-                                <Chip label="Primary Tag" color="primary" margin={0}/>
-                            </Stack>
-                            <Stack direction="row" spacing={2} padding={0} margin={0} alignItems='flex-start'>
-                                <Box></Box>
-                                <Typography ml={0} variant='subtitle2'>
-                                    -- Followers
-                                </Typography>
-                                <Typography ml={0} variant='subtitle2' >
-                                    -- Following
-                                </Typography>
-                            </Stack>
-                        </Stack>  
-                        <Box sx={{ width: '200px'}}></Box>
-                        <Stack direction="row" spacing={1} padding={1}>
-                            <IconButton color="primary" aria-label="main platform" size="medium">
-                                <YouTubeIcon />
-                            </IconButton>
-                            <Button variant="contained" size="small" padding='12px'>Follow</Button>
-                        </Stack>                        
+                        </Badge>
+                        <Grid container direction="column">                          
+                            <Grid container direction="row">
+                                <Grid item xs={8}>
+                                    <Stack direction="column" spacing={0} padding= {0}>                     
+                                        <Stack direction="row" spacing={2} padding={1} margin={0} alignItems='flex-start'>
+                                            <Typography component="h1" variant='h5'>
+                                                <b>USERNAME</b>
+                                            </Typography>
+                                            {/* Pirmary Tag */}
+                                            <Chip label="Primary Tag" color="primary" margin={0}/>
+                                        </Stack>
+                                        <Stack direction="row" spacing={2} padding={0} margin={0} alignItems='flex-start'>
+                                            <Box></Box>
+                                            <Typography ml={0} variant='subtitle2'>
+                                                -- Followers
+                                            </Typography>
+                                            <Typography ml={0} variant='subtitle2' >
+                                                -- Following
+                                            </Typography>
+                                        </Stack>
+                                    </Stack>  
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <Stack direction="row" spacing={1} padding={1}>
+                                        <IconButton color="primary" aria-label="main platform" size="medium">
+                                            <YouTubeIcon />
+                                        </IconButton>
+                                        <Button variant="contained" size="small" padding='1px'>Follow</Button>
+                                    </Stack>
+                                </Grid>
+                            </Grid>
+                            <Grid container direction="row">
+                                <Grid item>
+                                    <Typography ml={2} variant='subtitle2'>
+                                        This is a placeholder for that basic ass about me section that will be populated via the db.
+                                    </Typography>                        
+                                </Grid>
+                                <Grid item>
+                                    <Typography ml={2} variant='subtitle2'>
+                                        Links
+                                    </Typography> 
+                                </Grid>
+                            </Grid>
+                        </Grid>                         
                     </Stack>
-                </Paper>
-                {/* End Quasi Header */}
-                {/* About Me/Links  */}
-                <Paper elevation={1} mt={8} padding={6} sx={{ width:'650px', height:'200px'}}>
-                    <Stack direction='column'>
-                        <Box>
-                            <Typography>
-                                This is a placeholder for that basic ass about me section that will be populated via the db.
-                            </Typography>
-                        </Box>
-                        <Divider />
-                        <Box>
-                            <Typography>
-                            This is a placeholder for the basic ass links someone wants to share...
-                            </Typography>                            
-                        </Box>
-                    </Stack>
-                    <Divider />
-                    <Post />
-                </Paper>
-                    {/* About Me */}
-                    {/* Social Media Links */}
-                {/* End About Me/Links */}
+                </Paper>                                      
+                <Divider />
+                <PostCreate />              
+                <Divider />
+                <Post />
+                
                 {/* Begin Quasi Tabbing Pagination */}
                     {/* About universal */}
                     {/* Feed universal */}
