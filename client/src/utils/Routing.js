@@ -3,10 +3,10 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 // Resource Import
 import Home from '../pages/Home';
-import Profile from '../pages/Profile';
+import Profile from '../pages/Profile/Profile';
 import Signup from '../pages/Signup';
 import Signin from '../pages/Signin';
-import Login from '../pages/Login';
+import Signout from '../pages/Signout';
 import Introduction from '../pages/Introduction';
 import Vtubers from '../pages/Vtubers';
 import Artists from '../pages/Artists';
@@ -14,7 +14,7 @@ import Tutorials from '../pages/Tutorials';
 import ATools from '../pages/ATools';
 import VTools from '../pages/VTools';
 import About from '../pages/About';
-import ProfileGenerator from '../pages/ProfileGenerator';
+import ProfileGenerator from '../pages/Profile/ProfileGenerator';
 
 export default function Routing() {
     return (
@@ -22,10 +22,6 @@ export default function Routing() {
         <Route 
         path="/"
         element={<Home />} 
-        />
-        <Route 
-          path="/login" 
-          element={<Login />} 
         />
         <Route 
           path="/signup" 
@@ -40,12 +36,16 @@ export default function Routing() {
           element={<Profile />} 
         />
         <Route 
+          path="/:profileId"
+          element={<Profile />}
+        />
+        <Route 
           path="/signin" 
           element={<Signin />} 
         />
-        <Route 
-          path="/profiles/:profileId" 
-          element={<Profile />} 
+        <Route
+          path="/signout"
+          element={<Signout />}
         />
         <Route
           path="/introduction"

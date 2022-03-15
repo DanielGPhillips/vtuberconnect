@@ -8,8 +8,14 @@ const userSchema = new Schema({
         type: String,
         match: [/.+@.+\..+/, 'Must match an email adress!']
     },
+    profilePicture: String,
+    token: String,
     dateCreated: String,
-    
+    followers: Array,
+    followersCount: Number,
+    following: Array,
+    followingCount: Number,
+    posts: Array
 });
 
 // userSchema.pre('save', async function (next) {
@@ -25,6 +31,6 @@ const userSchema = new Schema({
 //     return bcrypt.compare(password, this.password);
 // };
 
-// const User = model('User', userSchema);
+const User = model('User', userSchema);
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = User;

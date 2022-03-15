@@ -56,33 +56,33 @@ const resolvers = {
       };
     },
 
-    async login(_, { email, password }) {
-      const {errors, valid } = validateLoginINput(email, password);
+    // async login(_, { email, password }) {
+    //   const {errors, valid } = validateLoginINput(email, password);
 
-      if (!valid) {
-        throw new UserInputError('Errors', { errors })
-      }
+    //   if (!valid) {
+    //     throw new UserInputError('Errors', { errors })
+    //   }
 
-      const user = await User.findOne({ email });
+    //   const user = await User.findOne({ email });
 
-      if(!user) {
-        errors.general = 'Email or password were incorrect';
-        throw new UserInputError('Email or password were incorrect', { errors })
-      }
-      const match = await bcrypt.compare(password, user.password);
-      if (!match) {
-        errors.general = 'Email or password were incorrect';
-        throw new UserInputError('Email or password were incorrect', { errors});
-      }
+    //   if(!user) {
+    //     errors.general = 'Email or password were incorrect';
+    //     throw new UserInputError('Email or password were incorrect', { errors })
+    //   }
+    //   const match = await bcrypt.compare(password, user.password);
+    //   if (!match) {
+    //     errors.general = 'Email or password were incorrect';
+    //     throw new UserInputError('Email or password were incorrect', { errors});
+    //   }
 
-      const token= generateToken(user);
+    //   const token= generateToken(user);
 
-      return {
-        ...user._doc,
-        id: user._id,
-        token
-      };
-    },
+    //   return {
+    //     ...user._doc,
+    //     id: user._id,
+    //     token
+    //   };
+    // },
 
     addProfile: async (parent, { name }) => {
       return Profile.create({ name });

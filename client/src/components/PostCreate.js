@@ -31,8 +31,11 @@ export default function PostCreate() {
 
     const [createPost, { error, data }] = useMutation(CREATE_POST);
 
-    const id = Auth.getProfile('id_token').data.id
-    console.log(Auth.getProfile('id_token'))
+    const id = () => {
+        if (Auth.loggedIn()) {
+            return Auth.getProfile('id_token').data.id
+        }
+    }
 
     const handleChange = (event) => {
         const { name,value } = event.target;
@@ -52,7 +55,7 @@ export default function PostCreate() {
     const imageUploadHandler = () => {
         if (imageSelection !== null ) {
             const moment = Date.now   
-            const storageRef = ref(storage, 'images/postImages/' + id + moment)
+            const storageRef = ref(storage, 'postImages/' + id + moment)
             const uploadTask = uploadBytesResumable(storageRef, imageSelection);
 
             uploadTask.on('state changed',
@@ -96,8 +99,9 @@ export default function PostCreate() {
 
     const handlePostSubmit = async (event) => {
         event.preventDefault();
+        console.log(postInput);
         try {
-            await imageUploadHandler();
+            imageUploadHandler();
             await createPost({
                 variables: {
                     createPostInput: { ...postInput },

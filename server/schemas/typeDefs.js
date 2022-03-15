@@ -4,7 +4,7 @@ const typeDefs = gql`
   scalar Date
 
   type User {
-    id: ID!
+    _id: ID
     username: String!
     email: String!
     profilePicture: String
@@ -41,11 +41,9 @@ const typeDefs = gql`
     primaryPlatform: String
     primaryLanguage: String
     about: String
-    # conversations: [Conversation]
   }
 
   input ProfileInput {
-    profilePicture: String
     profileBanner: String
     vtuber: Boolean
     artist: Boolean
@@ -212,6 +210,7 @@ const typeDefs = gql`
     createPost(createPostInput: CreatePostInput): Post!
     deletePost(postId: ID!): String!
     createComment(postId: String!, body: String!): Post!
+    getComments(postId: String!): Post
     deleteComment(postId: String!, commentId: ID!): Post!
     likePost(postId: ID!): Post!
     cringePost(postId: ID!): Post!

@@ -6,6 +6,7 @@ import { createTheme, useTheme, styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
@@ -19,24 +20,10 @@ import Avatar from '@mui/material/Avatar';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import MuiDrawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import SchoolIcon from '@mui/icons-material/School';
-import BrushIcon from '@mui/icons-material/Brush';
-import BuildIcon from '@mui/icons-material/Build';
-import PeopleIcon from '@mui/icons-material/People';
-import PaletteIcon from '@mui/icons-material/Palette';
-import LightbulbIcon from '@mui/icons-material/Lightbulb';
-import InfoIcon from '@mui/icons-material/Info';
 import SvgIcon from '@mui/material/SvgIcon';
 //Asset Import
 import VyLogo from '../props/VyLogo';
+import Auth from '../utils/auth';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -119,16 +106,7 @@ export default function NavbarCombo() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
-  };
-  
-  // const handleDrawerOpen = () => {
-  //   setOpen(true);
-  // };
-  
-  // const handleDrawerClose = () => {
-  //   setOpen(false);
-  // };
-  
+  }; 
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -148,7 +126,7 @@ export default function NavbarCombo() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose} component= { Link } to="/">Home</MenuItem>
-      <MenuItem onClick={handleMenuClose} component= { Link } to="/profile">Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose} component= { Link } to="/:userId">Profile</MenuItem>
       <MenuItem onClick={handleMenuClose} component= { Link } to="/account">My account</MenuItem>
       <MenuItem onClick={handleMenuClose} component= { Link } to="/signout">Sign Out</MenuItem>
     </Menu>
@@ -216,98 +194,6 @@ export default function NavbarCombo() {
     </Menu>
   );
 
-  // const drawerWidth = 240;
-
-  // const openedMixin = (theme) => ({
-  //   width: drawerWidth,
-  //   transition: theme.transitions.create('width', {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.enteringScreen,
-  //   }),
-  //   overflowX: 'hidden',
-  // });
-
-  // const closedMixin = (theme) => ({
-  //   transition: theme.transitions.create('width', {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.leavingScreen,
-  //   }),
-  //   overflowX: 'hidden',
-  //   width: `calc(${theme.spacing(7)} + 1px)`,
-  //   [theme.breakpoints.up('sm')]: {
-  //     width: `calc(${theme.spacing(8)} + 1px)`,
-  //   },
-  // });
-
-  // const DrawerHeader = styled('div')(({ theme }) => ({
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   justifyContent: 'flex-end',
-  //   padding: theme.spacing(0, 1),
-  //   // necessary for content to be below app bar
-  //   ...theme.mixins.toolbar,
-  // }));
-
-  // const AppBar = styled(MuiAppBar, {
-  //   shouldForwardProp: (prop) => prop !== 'open',
-  // })(({ theme, open }) => ({
-  //   zIndex: theme.zIndex.drawer + 1,
-  //   transition: theme.transitions.create(['width', 'margin'], {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.leavingScreen,
-  //   }),
-  //   ...(open && {
-  //     marginLeft: drawerWidth,
-  //     width: `calc(100% - ${drawerWidth}px)`,
-  //     transition: theme.transitions.create(['width', 'margin'], {
-  //       easing: theme.transitions.easing.sharp,
-  //       duration: theme.transitions.duration.enteringScreen,
-  //     }),
-  //   }),
-  // }));
-
-  // const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  //   ({ theme, open }) => ({
-  //     width: drawerWidth,
-  //     flexShrink: 0,
-  //     whiteSpace: 'nowrap',
-  //     boxSizing: 'border-box',
-  //     ...(open && {
-  //       ...openedMixin(theme),
-  //       '& .MuiDrawer-paper': openedMixin(theme),
-  //     }),
-  //     ...(!open && {
-  //       ...closedMixin(theme),
-  //       '& .MuiDrawer-paper': closedMixin(theme),
-  //     }),
-  //   }),
-  // );
-
-//   const SidebarItem = (props) => {
-//     return (
-//         <ListItemButton
-//               key={props.text}
-//               component={Link} to={props.link}
-//               sx={{
-//                 minHeight: 48,
-//                 justifyContent: open ? 'initial' : 'center',
-//                 px: 2.5,
-//               }}
-//             >
-//               <ListItemIcon
-//                 sx={{
-//                   minWidth: 0,
-//                   mr: open ? 3 : 'auto',
-//                   justifyContent: 'center',
-//                 }}
-//               >
-//                 {props.icon}
-//               </ListItemIcon>
-//               <ListItemText primary={props.text} sx={{ opacity: open ? 1 : 0 }} />
-//             </ListItemButton>
-//     )
-// };
-
   return (
     <Box color='primary' sx={{ display: 'flex' }}>
       <AppBar position="fixed" open={open} enableColorOnDark>
@@ -317,7 +203,6 @@ export default function NavbarCombo() {
             edge="start"
             color="inherit"
             aria-label="Vycelium Icon"
-            // onClick={handleDrawerOpen}
             sx={{
               marginRight: 5,
               ...(open && { display: 'none' }),
@@ -347,34 +232,48 @@ export default function NavbarCombo() {
           </Search>
           <Box sx={{ flexGrow: 1 }}/>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label='home' color='inherit' component= { Link } to="/">
-              <HomeIcon />
-            </IconButton>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit" component= { Link } to="/messages">
-              <Badge badgeContent={2} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <Avatar />
-            </IconButton>
+            {}
+            {Auth.loggedIn() ? (
+              <>
+                <IconButton size="large" aria-label='home' color='inherit' component= { Link } to="/">
+                  <HomeIcon />
+                </IconButton>
+                <IconButton size="large" aria-label="sign in" color="inherit" component= { Link } to="/signin">
+                    <MailIcon />              
+                </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="sign up"
+                  color="inherit"
+                >              
+                  <NotificationsIcon />
+                  
+                </IconButton>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <Avatar />
+                </IconButton>
+              </>
+              ) : (
+              <>
+                <IconButton size="large" aria-label='home' color='inherit' component= { Link } to="/">
+                  <HomeIcon />
+                </IconButton>
+                <Button size="large" aria-label="signup" color="inherit" component= { Link } to="/signup">
+                  Sign Up
+                </Button>
+                <Button size="large" aria-label="signin" color="inherit" component= { Link } to="/signin">
+                  Sign In
+                </Button>
+              </>
+            )}
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton

@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
 const { UserInputError } = require('apollo-server-express');
 
-const User = require('../../models/User');
-const generateToken = require('../../utils/auth'); 
+const { User } = require('../../models');
+const { generateToken } = require('../../utils/auth'); 
 const {
     validateSignUpInput,
     validateLogInInput 
@@ -52,7 +52,7 @@ module.exports = {
         
             const token = generateToken(res);
         
-            return {
+            return { 
                 ...res._doc,
                 id: res._id,
                 token
@@ -73,6 +73,7 @@ module.exports = {
             throw new UserInputError('Email or password were incorrect', { errors })
           }
           const match = await bcrypt.compare(password, user.password);
+
           if (!match) {
             errors.general = 'Email or password were incorrect';
             throw new UserInputError('Email or password were incorrect', { errors});
@@ -80,11 +81,11 @@ module.exports = {
     
           const token= generateToken(user);
     
-          return {
-            ...user._doc,
-            id: user._id,
-            token
-            };
+          return { 
+              ...user._doc,
+              id: user._id,
+              token
+           };
         },
     }
 }

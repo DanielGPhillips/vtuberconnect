@@ -34,10 +34,10 @@ import DateRangeIcon from "@mui/icons-material/DateRange";
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 //Resource Import
-import PostCreate from "../components/PostCreate";
-import Post from "../components/Post";
-import ProfileFeed from "../components/ProfileFeed";
-import { QUERY_SINGLE_PROFILE, QUERY_PROFILE_SELF} from '../utils/queries';
+import PostCreate from "../../components/PostCreate";
+import Post from "../../components/Post";
+import ProfileFeed from "../../components/ProfileFeed";
+import { QUERY_SINGLE_PROFILE, QUERY_PROFILE_SELF} from '../../utils/queries';
 // import { followAccount, followingAccount } from "../api";
 
 const Input = styled('input')({
@@ -49,30 +49,30 @@ export default function Profile() {
     const theme = useTheme();
     const { userId } = useParams();
 
-    const { loading, data} = useQuery(
-        userId ? QUERY_SINGLE_PROFILE : QUERY_PROFILE_SELF,
-        {
-            variables: { userId: userId},
-        } 
-    );
+    // const { loading, data} = useQuery(
+    //     userId ? QUERY_SINGLE_PROFILE : QUERY_PROFILE_SELF,
+    //     {
+    //         variables: { userId: userId},
+    //     } 
+    // );
 
-    const profile = data?.me || data?.profile || {};
+    // const profile = data?.me || data?.profile || {};
 
-    // if (AuthenticationAssertionResponse.loggedIn() && AuthenticationAssertionResponse.getProfile().data.id === userId) {
-    //     return <Navigate to="/me" />;
+    // // if (AuthenticationAssertionResponse.loggedIn() && AuthenticationAssertionResponse.getProfile().data.id === userId) {
+    // //     return <Navigate to="/me" />;
+    // // }
+
+    // if (loading) {
+    //     return <div>Loading...</div>
     // }
 
-    if (loading) {
-        return <div>Loading...</div>
-    }
-
-    if (!profile?.name) {
-        return (
-            <h4>
-                You need to be logged in to see your profile page. Use the navigation links above to sign up or login!
-            </h4>
-        );
-    }
+    // if (!profile?.name) {
+    //     return (
+    //         <h4>
+    //             You need to be logged in to see your profile page. Use the navigation links above to sign up or login!
+    //         </h4>
+    //     );
+    // }
 
     return (
         <Paper elevation={0}>
