@@ -1,8 +1,10 @@
 // React Import
 import React, { useEffect } from 'react';
-import { useParams } from "react-router";
+import { Navigate, useParams } from "react-router-dom";
+import { useQuery } from '@apollo/client';
 import { Link as RouteLink } from "react-router-dom";
 import format from "date-fns/format";
+
 // Redux Import
 // import { useDispatch, useSelector } from "react-redux";
 // import { getFollowers, getFollowings } from "../redux/followSlice";
@@ -34,7 +36,8 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 //Resource Import
 import PostCreate from "../components/PostCreate";
 import Post from "../components/Post";
-import zIndex from '@mui/material/styles/zIndex';
+import ProfileFeed from "../components/ProfileFeed";
+import { QUERY_SINGLE_PROFILE, QUERY_PROFILE_SELF} from '../utils/queries';
 // import { followAccount, followingAccount } from "../api";
 
 const Input = styled('input')({
@@ -44,6 +47,33 @@ display: 'none',
 
 export default function Profile() {
     const theme = useTheme();
+    const { userId } = useParams();
+
+    const { loading, data} = useQuery(
+        userId ? QUERY_SINGLE_PROFILE : QUERY_PROFILE_SELF,
+        {
+            variables: { userId: userId},
+        } 
+    );
+
+    const profile = data?.me || data?.profile || {};
+
+    // if (AuthenticationAssertionResponse.loggedIn() && AuthenticationAssertionResponse.getProfile().data.id === userId) {
+    //     return <Navigate to="/me" />;
+    // }
+
+    if (loading) {
+        return <div>Loading...</div>
+    }
+
+    if (!profile?.name) {
+        return (
+            <h4>
+                You need to be logged in to see your profile page. Use the navigation links above to sign up or login!
+            </h4>
+        );
+    }
+
     return (
         <Paper elevation={0}>
             <Grid container direction="column">
@@ -143,6 +173,7 @@ export default function Profile() {
                 <Divider />
                 <PostCreate />              
                 <Divider />
+                <ProfileFeed />
                 <Post />
                 
                 {/* Begin Quasi Tabbing Pagination */}

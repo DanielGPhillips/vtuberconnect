@@ -14,6 +14,8 @@ import {
   HttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+// Firebase Import
+import { Storage } from './firebase/index'
 //Resource Import
 import App from './App';
 // WebVitals Import

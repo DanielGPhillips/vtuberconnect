@@ -1,5 +1,7 @@
 // React Import
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 // MUI Component Import
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -16,6 +18,7 @@ import SentimentDissatisfied from'@mui/icons-material/SentimentDissatisfied';
 import ShareIcon from '@mui/icons-material/Share';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 // Resource Import
+import Auth from '../utils/auth'
 
 export default function Post() {
     return (

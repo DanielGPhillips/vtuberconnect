@@ -1,4 +1,5 @@
 const { AuthenticationError, UserInputError } = require('apollo-server-express');
+const { User } = require('../../models');
 
 const Post = require('../../models/Post');
 const checkAuth = require('../../utils/checkAuth');
@@ -13,6 +14,19 @@ module.exports = {
                 throw new Error(err)
             }
         },
+        // takes user id to lock in User so that we can grab following from that user
+        // from following array, iterate over each user to get posts
+        // drill into posts of each individual user to get necessary post data to render
+        // 
+        // async getFollowedPosts(_, { userId }, context) {
+        //     const user = await User.findById(userId);
+        //     const following = await user.following
+        //     following.forEach((User.posts) => {
+        //         const posts=  await Post.find().sort({dateCreated: -1})
+        //     });
+            
+        //     return posts;
+        // },
         async getPost(_, { postId }) {
             try {
                 const post = await Post.findById(postId);

@@ -7,8 +7,14 @@ const typeDefs = gql`
     id: ID!
     username: String!
     email: String!
+    profilePicture: String
     token: String!
     dateCreated: String!
+    followers: [User]
+    followersCount: Int
+    following: [User]
+    followingCount: Int
+    posts: [Post]
   }
 
   input SignUpInput {
@@ -26,7 +32,6 @@ const typeDefs = gql`
   type Profile {
     id: ID!
     userId: User!
-    profilePicture: String
     profileBanner: String
     vtuber: Boolean
     vtuberId: Vtuber
@@ -36,11 +41,6 @@ const typeDefs = gql`
     primaryPlatform: String
     primaryLanguage: String
     about: String
-    followers: [User]
-    followersCount: Int
-    following: [User]
-    followingCount: Int
-    posts: [Post]
     # conversations: [Conversation]
   }
 
@@ -58,7 +58,7 @@ const typeDefs = gql`
   type Vtuber {
     id: ID!
     isUser: Boolean
-    userid: User    
+    userId: User    
     links: [String]
     modelImage: String
     species: String
@@ -147,6 +147,12 @@ const typeDefs = gql`
     image: String
   }
 
+  input CreatePostInput {
+    body: String!
+    imageFlag: Boolean!
+    image: String
+  }
+
   type Comment {
     id: ID!
     author: User!
@@ -187,9 +193,12 @@ const typeDefs = gql`
 
   type Query {
     getProfiles: [Profile]
-    getProfile(profileId: ID!): Profile
+    getProfile(userId: ID!): Profile
+    getProfileSelf: Profile
+    getUserPosts(userId: ID): [Post]
+    getFollowedPosts(userId: ID!): [User]
+    getPost(userId: ID!): Post
     getPosts: [Post]
-    getPost(postId: ID!): Post
     getArtists: [Artist]
     getVtubers: [Vtuber]
   }
@@ -200,7 +209,7 @@ const typeDefs = gql`
     createArtist(artistInput: ArtistInput): Artist!
     createVtuber(vtuberInput: VtuberInput): Vtuber!
     login(userLoginInput: UserLoginInput ): User!
-    createPost(body: String!): Post!
+    createPost(createPostInput: CreatePostInput): Post!
     deletePost(postId: ID!): String!
     createComment(postId: String!, body: String!): Post!
     deleteComment(postId: String!, commentId: ID!): Post!

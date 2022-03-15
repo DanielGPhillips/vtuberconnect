@@ -31,6 +31,23 @@ export const ADD_USER = gql`
       username
       email      
     }
-  }`;
+  }
+`;
+
+export const CREATE_POST = gql`
+  mutation createPost($createPostInput: CreatePostInput) {
+    createPost(createPostInput: $createPostInput) {
+      id
+      author {
+        id
+        username
+        profilePicture
+      }
+      body
+      imageFlag
+      image
+    }
+  }
+`;
 
 

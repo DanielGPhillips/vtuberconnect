@@ -26,6 +26,15 @@ module.exports = {
                 throw new Error(err)
             }
         },
+        async getProfileSelf(_, args, context) {
+            try {
+                if (context.user) {
+                    return Profile.findOne({id: context.user.id})
+                }
+            } catch (err) {
+                throw new AuthenticationError('You need to be logged in')
+            }
+        }
     },
     Mutation: {
         async createProfile(_, { profileInput: {profilePicture, profileBanner, vtuber, artist, primaryTag, primaryPlatform, primaryLanguage, about}}, context) {
