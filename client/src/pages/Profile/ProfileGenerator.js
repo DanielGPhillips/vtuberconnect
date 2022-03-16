@@ -1,5 +1,5 @@
 // React Import
-import React from 'react';
+import React, {useState} from 'react';
 // Mui Component Import
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -10,17 +10,26 @@ import Button from '@mui/material/Button';
 // Apollo Import 
 import { useMutation } from '@apollo/client';
 // Resource Import
-import { ADD_NAME } from '../../utils/mutations'
+import AddProfilePicture from './AddProfilePicture';
 
 
 
 function ProfileGenerator() {
-    // const [formState, setFormState] = useState({
-    //     firstName: '',
-    //     lastName: '',
-    // });
+    const [profileInput, setProfileInput] = useState({
+        firstName: '',
+        lastName: '',
+    });
 
     // const [addName, {error, data}] = useMutation(ADD_NAME);
+
+    const handleChange = (event) => {
+        const { name,value } = event.target;
+
+        setProfileInput({
+            ...profileInput,
+            [name]: value,
+        });
+    }
     
     const handleNameSubmit = (event) => {
         event.preventDefault()
@@ -33,6 +42,7 @@ function ProfileGenerator() {
                     <Typography component='h1' variant='h5'>
                         Let's Make a Profile!    
                     </Typography>
+                    <AddProfilePicture />
                     <Box component='form' noValidate onSubmit={handleNameSubmit} sx={{ mt: 1, alignItems: 'center',}}>
                         <Typography component="h2" variant="h6">
                             What's Your Name?
@@ -55,7 +65,6 @@ function ProfileGenerator() {
                         />
                         <Button 
                             type= "submit"
-                            fullwidth
                             variant= "contained"
                             sx={{ mt: 3, mb: 2 }}
                         >

@@ -1,4 +1,4 @@
-const { default: mongoose } = require('mongoose');
+const mongoose = require('mongoose');
 const { Schema, model } = require('mongoose');
 
 const reviewSchema = new Schema({
@@ -65,4 +65,4 @@ const reviewSchema = new Schema({
 
 const Review = model('Review', reviewSchema);
 
-model.exports = Review;
+module.exports = Review;

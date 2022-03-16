@@ -19,43 +19,59 @@ import ShareIcon from '@mui/icons-material/Share';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 // Resource Import
 import Auth from '../utils/auth'
+import moment from 'moment';
 
-export default function Post() {
-    return (
-        <Card variant='outlined'>
-            <CardHeader
-                avatar={
-                    <Avatar></Avatar>
-                }
-                title="Username"
-                subheader="Time Posted"
-            />
-            <CardContent>
-                <Typography variant="body2">
-                    This is a placeholder for the post body text.
-                </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-                <Grid container direction='row'>
-                    <Grid item xs={4}>
-                        <IconButton aria-label="cheer this post">
-                            <FavoriteIcon />
-                        </IconButton>
-                        <IconButton aria-label="cringe this post">
-                            <SentimentDissatisfied />
-                        </IconButton>
-                        <IconButton aria-label="share this post">
-                            <ShareIcon />
-                        </IconButton>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Button color="secondary" endIcon={<ArrowDropDown />}> X Comments </Button>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Button variant='contained'> Comment </Button>
-                    </Grid>
-                </Grid>
-            </CardActions>
-        </Card>
-    )
-}
+// export default function Post({ post: { body, dateCreated, id, commentCount, isLiked, likes, likeCount, causedCringe, cringes, cringeCount, imageFlag, image, author}}) {
+//     function likePost(){
+//         console.log('Like post!');
+//     };
+
+//     function cringePost(){
+//         console.log('Cringe post!');
+//     };
+
+//     function addPostComment(){
+//         console.log('Comment on post.');
+//     };
+    
+//     return (
+//         <Card variant='outlined'>
+//             <CardHeader
+//                 avatar={
+//                     <Avatar src={author.username}></Avatar>
+//                 }
+//                 title={author.username}
+//                 subheader={moment(dateCreated).fromNow(true)}
+//             />
+//             <CardContent>
+//                 <Typography variant="body2">
+//                     {body}
+//                 </Typography>
+//             </CardContent>
+//             <CardActions disableSpacing>
+//                 <Grid container direction='row'>
+//                     <Grid item xs={4}>
+//                         <IconButton aria-label="cheer this post" onClick={likePost}>
+//                             <FavoriteIcon />
+//                         </IconButton>
+//                         <Typography>
+//                             {likeCount}
+//                         </Typography>
+//                         <IconButton aria-label="cringe this post" onClick={cringePost}>
+//                             <SentimentDissatisfied />
+//                         </IconButton>
+//                         <Typography>
+//                             {cringeCount}
+//                         </Typography>
+//                     </Grid>
+//                     <Grid item xs={6}>
+//                         <Button color="secondary" endIcon={<ArrowDropDown />}> {commentCount} Comments </Button>
+//                     </Grid>
+//                     <Grid item xs={2}>
+//                         <Button variant='contained' onClick={addPostComment}> Comment </Button>
+//                     </Grid>
+//                 </Grid>
+//             </CardActions>
+//         </Card>
+//     )
+// }

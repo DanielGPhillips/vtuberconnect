@@ -23,8 +23,34 @@ import { gql } from '@apollo/client';
 // export const QUERY_PROFILE_SELF = gql`
 //   query profileSelf()`
 
+export const GET_POSTS = gql`
+  query GetPosts {
+    getPosts {
+      id
+      author {
+        _id
+        UsernameprofilePicture
+      }
+      body
+      commentCount
+      isLiked
+      likes {
+        username
+      }
+      likeCount
+      causedCringe
+      cringes {
+        username
+      }
+      cringeCount
+      imageFlag
+      image
+    }
+  }
+`
+
 export const QUERY_FOLLOWED_POSTS = gql`
-  query GetFollowedPosts($userId: ID!) {
+  query getFollowedPosts($userId: ID!) {
     getFollowedPosts(userId: $userId) {
       following {
         posts {

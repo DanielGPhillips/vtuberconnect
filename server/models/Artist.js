@@ -1,4 +1,4 @@
-const { default: mongoose } = require('mongoose');
+const mongoose = require('mongoose');
 const {Schema, model} = require('mongoose');
 
 const artistSchema = new Schema({
@@ -49,4 +49,4 @@ const artistSchema = new Schema({
 
 const Artist = model('Artist', artistSchema);
 
-model.exports = Artist;
+module.exports = Artist;

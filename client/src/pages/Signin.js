@@ -1,5 +1,5 @@
 // Import React
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { Link as RouterLink, MemoryRouter } from 'react-router-dom';
 //Import MUI Components
 import Avatar from '@mui/material/Avatar';
@@ -15,52 +15,54 @@ import Typography from '@mui/material/Typography'
 import { useMutation } from '@apollo/client';
 // Import Assets
 import Auth from '../utils/auth';
+import { AuthContext } from '../utils/auth'
 import { LOGIN_USER } from '../utils/mutations';
 import Copyright from '../props/Copyright';
 
 
 export default function Login() {
-    const [userLoginInput, setFormState] = useState({
-        email: '',
-        password: '',
-    });
-    
-    const [login, {error, data}] = useMutation(LOGIN_USER, {
-      // variables: {
-      //   UserLoginInput: loginInput
-      // }
-    })
-    
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-
-        setFormState({
-            ...userLoginInput,
-            [name]: value,
-        });
-    }
+  const context = useContext(AuthContext);
+  const [userLoginInput, setFormState] = useState({
+      email: '',
+      password: '',
+  });
   
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      console.log(userLoginInput);
-      // const data = new FormData(event.currentTarget);
-      try {
-          const { data } = await login({
-              variables: {
-                userLoginInput: { ...userLoginInput },
-              },
-          });
-          console.log(data);
-          Auth.login(data.login.token);
-      } catch (e) {
-          console.error(e);
-      };
+  const [login, {error, data}] = useMutation(LOGIN_USER, {
+    // variables: {
+    //   UserLoginInput: loginInput
+    // }
+  })
+  
+  const handleChange = (event) => {
+      const { name, value } = event.target;
 
       setFormState({
-        email: '',
-        password: '',
+          ...userLoginInput,
+          [name]: value,
       });
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(userLoginInput);
+    // const data = new FormData(event.currentTarget);
+    try {
+        const { data } = await login({
+            variables: {
+              userLoginInput: { ...userLoginInput },
+            },
+        });
+        console.log(data);
+        Auth.login(data.login.token);
+    } catch (e) {
+        console.error(e);
     };
+
+    setFormState({
+      email: '',
+      password: '',
+    });
+  };
 
 
 

@@ -18,6 +18,7 @@ import { setContext } from '@apollo/client/link/context';
 import { Storage } from './firebase/index'
 //Resource Import
 import App from './App';
+import { AuthProvider} from './utils/auth';
 // WebVitals Import
 import reportWebVitals from './reportWebVitals';
 
@@ -64,8 +65,10 @@ ReactDOM.render(
     <ApolloProvider client={client}>
         <StyledEngineProvider injectFirst>     
           <ThemeProvider theme={theme}>
-          <CssBaseline /> 
-            <App />
+          <CssBaseline />
+            <AuthProvider>
+              <App />
+            </AuthProvider> 
           </ThemeProvider>                
         </StyledEngineProvider>
     </ApolloProvider>

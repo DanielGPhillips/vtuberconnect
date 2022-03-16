@@ -203,7 +203,8 @@ const typeDefs = gql`
 
   type Mutation {
     signUp(signUpInput: SignUpInput): User!
-    createProfile(profileInput: ProfileInput): Profile!
+    createProfile(userId: ID!, profileInput: ProfileInput): Profile!
+    addPfp(userId: ID!, profilePicture: String!): User
     createArtist(artistInput: ArtistInput): Artist!
     createVtuber(vtuberInput: VtuberInput): Vtuber!
     login(userLoginInput: UserLoginInput ): User!

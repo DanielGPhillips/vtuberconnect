@@ -174,7 +174,7 @@ export default function Profile() {
                 <PostCreate />              
                 <Divider />
                 <ProfileFeed />
-                <Post />
+                {/* <Post /> */}
                 
                 {/* Begin Quasi Tabbing Pagination */}
                     {/* About universal */}

@@ -31,11 +31,14 @@ export default function PostCreate() {
 
     const [createPost, { error, data }] = useMutation(CREATE_POST);
 
-    const id = () => {
+    function getUser() {
         if (Auth.loggedIn()) {
-            return Auth.getProfile('id_token').data.id
+          const user = Auth.getProfile().data
+          return user;
         }
-    }
+      }
+    const user = getUser();
+    const id = user.id;
 
     const handleChange = (event) => {
         const { name,value } = event.target;
@@ -89,7 +92,7 @@ export default function PostCreate() {
                     getDownloadURL(uploadTask.snapshot.ref). then((downloadURL) => {
                         setPostInput({
                             imageFlag: true,
-                            image: downloadURL
+                            image: {downloadURL}
                         })
                     })
                 }
@@ -129,7 +132,10 @@ export default function PostCreate() {
             <Grid container direction="column">
                 <Grid container direction="row">
                     <Grid item xs={3} sm={2}>
-                        <Avatar sx={{ marginTop:'5px', marginLeft:'10px', marginRigh:'10px'}}></Avatar>
+                        <Avatar
+                            src={user.profilePicture} 
+                            sx={{ marginTop:'5px', marginLeft:'10px', marginRigh:'10px'}} 
+                        />
                     </Grid>
                     <Grid item xs={9} sm={10}>
                         <TextField

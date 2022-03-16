@@ -194,6 +194,14 @@ export default function NavbarCombo() {
     </Menu>
   );
 
+  function getUser() {
+    if (Auth.loggedIn()) {
+      const user = Auth.getProfile().data
+      return user;
+    }
+  }
+  const user = getUser()
+
   return (
     <Box color='primary' sx={{ display: 'flex' }}>
       <AppBar position="fixed" open={open} enableColorOnDark>
@@ -258,7 +266,7 @@ export default function NavbarCombo() {
                   onClick={handleProfileMenuOpen}
                   color="inherit"
                 >
-                  <Avatar />
+                  <Avatar src={user.profilePicture} alt='user avatar'/>
                 </IconButton>
               </>
               ) : (

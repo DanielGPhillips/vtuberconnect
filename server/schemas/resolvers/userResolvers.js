@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { UserInputError } = require('apollo-server-express');
+const { UserInputError, AuthenticationError } = require('apollo-server-express');
 
 const { User } = require('../../models');
 const { generateToken } = require('../../utils/auth'); 
@@ -87,5 +87,15 @@ module.exports = {
               token
            };
         },
+
+        async addPfp(_,{ userId, profilePicture }, context) {
+            if (context.user) {
+                const filter = { _id: userId };
+                const update = { profilePicture: profilePicture};
+                const opts = { new: true };
+                return User.findOneAndUpdate(filter, update, opts);
+            }
+            throw new AuthenticationError('You need to be logged in to do this.')
+        }
     }
 }

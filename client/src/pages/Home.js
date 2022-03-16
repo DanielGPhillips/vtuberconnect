@@ -8,23 +8,13 @@ import { ThemeProvider, createTheme } from '@mui/material';
 
 // Resource Import
 import PostCreate from '../components/PostCreate';
+import Feed from '../components/Feed';
 
 export default function Home() {
   return (
       <Box>
-        <Box>
           <PostCreate />
-          {/* Carousel */}
-          <Typography variant='h6'>Carousel</Typography>
-        </Box>
-        <Box>
-          {/* Post Function */}
-          <Typography variant='h6'>Make a Post</Typography>
-        </Box>
-        <Box>
-          {/* Post Feed from followed users*/}
-          <Typography variant='h6'>Followed Feed</Typography>
-        </Box>
+          {/* <Feed /> */}
       </Box>
   );
 };

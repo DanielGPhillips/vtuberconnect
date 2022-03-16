@@ -1,4 +1,4 @@
-const { default: mongoose } = require('mongoose');
+const mongoose = require('mongoose');
 const {Schema, model} = require('mongoose');
 
 const vtuberSchema = new Schema({
@@ -29,4 +29,4 @@ const vtuberSchema = new Schema({
 
 const Vtuber = model('Vtuber', vtuberSchema);
 
-model.exports = Vtuber;
+module.exports = Vtuber;
