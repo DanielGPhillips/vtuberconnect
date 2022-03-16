@@ -3,7 +3,6 @@ import React from 'react';
 import { useMutation } from '@apollo/client';
 // MUI Import
 import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
@@ -12,15 +11,15 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 // Firebase Import 
 import { storage } from '../../firebase';
 // Resource import
-import { ADD_PFP } from '../../utils/mutations';
+import { ADD_PROFILEBANNER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage' 
 
 
-function AddProfilePicture() {
-    const [pfpState, setPfpState] = React.useState({ userId: '', profilePicture: ''})
-    const [pfpSelection, setPfpSelection] = React.useState(null);
-    const [addPfp, {error, data}] = useMutation(ADD_PFP);
+function AddProfileBanner() {
+    const [profileBannerState, setProfileBannerState] = React.useState({ userId: '', profilePicture: ''})
+    const [profileBannerSelection, setProfileBannerSelection] = React.useState(null);
+    const [addProfileBanner, {error, data}] = useMutation(ADD_PROFILEBANNER);
 
     function getId() {
         if (Auth.loggedIn()) {
@@ -31,17 +30,17 @@ function AddProfilePicture() {
 
     const id = getId();
     
-    const pfpSelectedHandler = event => {
+    const profileBannerSelectedHandler = event => {
         if (event.target.files[0]) {
-            setPfpSelection(event.target.files[0]);
+            setProfileBannerSelection(event.target.files[0]);
         }     
     };
 
-    const pfpUploadHandler = () => {
-        if (pfpSelection !== null ) {
+    const profileBannerUploadHandler = () => {
+        if (profileBannerSelection !== null ) {
             const moment = Date.now   
             const storageRef = ref(storage, 'profileImages/' + id + moment)
-            const uploadTask = uploadBytesResumable(storageRef, pfpSelection);
+            const uploadTask = uploadBytesResumable(storageRef, profileBannerSelection);
 
             uploadTask.on('state changed',
             (snapshot) => {
@@ -72,9 +71,9 @@ function AddProfilePicture() {
             },
             () => {
                     getDownloadURL(uploadTask.snapshot.ref). then((downloadUrl) => {
-                        setPfpState({
+                        setProfileBannerState({
                             userId: id,
-                            profilePicture: downloadUrl
+                            profileBanner: downloadUrl
                         })
                     })
                 }
@@ -83,12 +82,12 @@ function AddProfilePicture() {
     };
 
 
-    const handlePfpSubmit = async (event) => {
+    const handleProfileBannerSubmit = async (event) => {
         event.preventDefault();
         try {
-            pfpUploadHandler();
-            await addPfp({
-                variables: { ...pfpState }
+            profileBannerUploadHandler();
+            await addProfileBanner({
+                variables: { ...profileBannerState }
             });
             
             Auth.loggedIn()
@@ -96,7 +95,7 @@ function AddProfilePicture() {
             console.error(e);
         }
 
-        setPfpSelection(null)
+        setProfileBannerSelection(null)
     };
 
     return (
@@ -105,7 +104,7 @@ function AddProfilePicture() {
                 <Grid container direction="column">
                     <Grid item mb={1}>
                         <Typography variant="h5">
-                            Upload a Profile Photo
+                            Upload a Profile Banner
                         </Typography>
                     </Grid>
                     <Grid item>
@@ -114,10 +113,10 @@ function AddProfilePicture() {
                             accept="image/png" 
                             id="icon-button-file" 
                             type="file"
-                            onChange={pfpSelectedHandler} 
+                            onChange={profileBannerSelectedHandler} 
                             />
                         </label>
-                        <IconButton color="primary" aria-label="upload picture" component="span" onClick={handlePfpSubmit}>
+                        <IconButton color="primary" aria-label="upload picture" component="span" onClick={handleProfileBannerSubmit}>
                             <PhotoCamera />
                         </IconButton>
                     </Grid>
@@ -127,4 +126,4 @@ function AddProfilePicture() {
     )
 }
 
-export default AddProfilePicture
+export default AddProfileBanner;

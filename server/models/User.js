@@ -1,6 +1,7 @@
 const { model, Schema } = require('mongoose');
 // const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const Artist = require('./Artist');
 const userSchema = new Schema({
     username: String,
     password: String,
@@ -11,6 +12,15 @@ const userSchema = new Schema({
     profilePicture: String,
     token: String,
     dateCreated: String,
+    profileBanner: String,
+    primaryTag: String,
+    primaryPlatform: String,
+    primaryLanguage: String,
+    about: String,
+    vtuber: Boolean,
+    vtuberId: String,
+    artist: Boolean,
+    artistId: String,
     followers: Array,
     followersCount: Number,
     following: Array,

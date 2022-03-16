@@ -43,6 +43,14 @@ export const ADD_PFP = gql`
   }
 `;
 
+export const ADD_PROFILEBANNER = gql`
+  mutation addProfileBanner($userId: ID! $profileBanner: String!) {
+    addProfileBanner(userId: $userId, profileBanner: $profileBanner) {
+      profileBanner
+    }
+  }
+`;
+
 export const CREATE_POST = gql`
   mutation createPost($createPostInput: CreatePostInput) {
     createPost(createPostInput: $createPostInput) {

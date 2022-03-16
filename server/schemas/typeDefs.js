@@ -10,6 +10,15 @@ const typeDefs = gql`
     profilePicture: String
     token: String!
     dateCreated: String!
+    profileBanner: String
+    vtuber: Boolean
+    vtuberId: Vtuber
+    artist: Boolean
+    artistId: Artist
+    primaryTag: String
+    primaryPlatform: String
+    primaryLanguage: String
+    about: String
     followers: [User]
     followersCount: Int
     following: [User]
@@ -32,21 +41,10 @@ const typeDefs = gql`
   type Profile {
     id: ID!
     userId: User!
-    profileBanner: String
-    vtuber: Boolean
-    vtuberId: Vtuber
-    artist: Boolean
-    artistId: Artist
-    primaryTag: String
-    primaryPlatform: String
-    primaryLanguage: String
-    about: String
+    
   }
 
   input ProfileInput {
-    profileBanner: String
-    vtuber: Boolean
-    artist: Boolean
     primaryTag: String
     primaryPlatform: String
     primaryLanguage: String
@@ -190,9 +188,9 @@ const typeDefs = gql`
   }
 
   type Query {
-    getProfiles: [Profile]
-    getProfile(userId: ID!): Profile
-    getProfileSelf: Profile
+    getProfiles: [User]
+    getProfile(userId: ID!): User
+    getProfileSelf: User
     getUserPosts(userId: ID): [Post]
     getFollowedPosts(userId: ID!): [User]
     getPost(userId: ID!): Post
@@ -203,8 +201,9 @@ const typeDefs = gql`
 
   type Mutation {
     signUp(signUpInput: SignUpInput): User!
-    createProfile(userId: ID!, profileInput: ProfileInput): Profile!
+    createProfile(userId: ID!, profileInput: ProfileInput): User!
     addPfp(userId: ID!, profilePicture: String!): User
+    addProfileBanner(userId: ID!, profileBanner: String!): User
     createArtist(artistInput: ArtistInput): Artist!
     createVtuber(vtuberInput: VtuberInput): Vtuber!
     login(userLoginInput: UserLoginInput ): User!
@@ -215,7 +214,7 @@ const typeDefs = gql`
     deleteComment(postId: String!, commentId: ID!): Post!
     likePost(postId: ID!): Post!
     cringePost(postId: ID!): Post!
-    removeProfile(profileId: ID!): Profile
+    removeUser(userId: ID!): User
   }
 
   type Subscription {

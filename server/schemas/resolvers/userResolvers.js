@@ -96,6 +96,16 @@ module.exports = {
                 return User.findOneAndUpdate(filter, update, opts);
             }
             throw new AuthenticationError('You need to be logged in to do this.')
+        },
+
+        async addProfileBanner(_,{ userId, profileBanner }, context) {
+            if (context.user) {
+                const filter = { _id: userId };
+                const update = { profileBanner: profileBanner};
+                const opts = { new: true };
+                return User.findOneAndUpdate(filter, update, opts);
+            }
+            throw new AuthenticationError('You need to be logged in to do this.')
         }
     }
 }

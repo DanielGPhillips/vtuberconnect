@@ -10,28 +10,33 @@ import Button from '@mui/material/Button';
 // Apollo Import 
 import { useMutation } from '@apollo/client';
 // Resource Import
+import { ADD_PROFILE } from '../../utils/mutations';
 import AddProfilePicture from './AddProfilePicture';
+import AddProfileBanner from './AddProfileBanner';
 
 
 
 function ProfileGenerator() {
-    const [profileInput, setProfileInput] = useState({
-        firstName: '',
-        lastName: '',
+    const [addProfile, { error, data }] = useMutation(ADD_PROFILE);
+    const [profileInput, setFormState] = useState({
+        about: '',
+        primaryPlatform: '',    
+        primaryLanguage: '',
+        primaryTag: '',   
     });
-
-    // const [addName, {error, data}] = useMutation(ADD_NAME);
-
-    const handleChange = (event) => {
-        const { name,value } = event.target;
-
-        setProfileInput({
-            ...profileInput,
-            [name]: value,
-        });
-    }
     
-    const handleNameSubmit = (event) => {
+    
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+    
+        setFormState({
+          ...profileInput,
+          [name]: value,
+        });
+        console.log(profileInput);
+    };    
+    
+    const handleProfileSubmit = (event) => {
         event.preventDefault()
     }
 
@@ -39,33 +44,69 @@ function ProfileGenerator() {
         <Grid container component='main' sx={{ height: '100vh'}}>
             <Grid item xs={12}  component={Paper} eleveation={6} square>
                 <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center',}}>
-                    <Typography component='h1' variant='h5'>
+                    <Typography component='h1' variant='h3' mt={6} mb={6}>
                         Let's Make a Profile!    
                     </Typography>
                     <AddProfilePicture />
-                    <Box component='form' noValidate onSubmit={handleNameSubmit} sx={{ mt: 1, alignItems: 'center',}}>
+                    <AddProfileBanner />
+                    <Box component='form' noValidate onSubmit={handleProfileSubmit} sx={{ mt: 1, alignItems: 'center',}}>
                         <Typography component="h2" variant="h6">
-                            What's Your Name?
+                            Tell a little about yourself...
                         </Typography>
                         <TextField 
                             margin="normal" 
                             required 
                             fullWidth 
-                            id="firstName" 
-                            label="First Name" 
-                            name="firstName" 
+                            id="aboutMe" 
+                            label="About Me" 
+                            name="aboutMe"
+                            value={profileInput.about}
+                            onChange={handleChange}
                         />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="lastName"
-                            label="Last Name"
-                            name="lastName"
+                        <Typography component="h2" variant="h6">
+                            Where do you predominantly hang out...
+                        </Typography>
+                        <TextField 
+                            margin="normal" 
+                            required 
+                            fullWidth 
+                            id="primaryPlatform" 
+                            label="Primary Platform" 
+                            name="primaryPlatform"
+                            value={profileInput.primaryPlatform}
+                            onChange={handleChange}
                         />
+                        <Typography component="h2" variant="h6">
+                            What language do you primarily speak...
+                        </Typography>
+                        <TextField 
+                            margin="normal" 
+                            required 
+                            fullWidth 
+                            id="primaryLanguage" 
+                            label="Primary Language" 
+                            name="primaryLanguage"
+                            value={profileInput.primaryLanguage}
+                            onChange={handleChange}
+                        />
+                        <Typography component="h2" variant="h6">
+                            What would you consider your main Tag? ex. Fan, ENVTuber, Rigger, Illustrator, etc.
+                        </Typography>
+                        <TextField 
+                            margin="normal" 
+                            required 
+                            fullWidth 
+                            id="primaryTag" 
+                            label="Primary Tag" 
+                            name="primaryTag"
+                            value={profileInput.primaryTag}
+                            onChange={handleChange}
+                        />
+                        
                         <Button 
                             type= "submit"
                             variant= "contained"
+                            onClick={handleProfileSubmit}
                             sx={{ mt: 3, mb: 2 }}
                         >
                             Submit
@@ -73,12 +114,6 @@ function ProfileGenerator() {
                     </Box>
                 </Box>
             </Grid>
-            {/* First and Last Name */}
-            {/* Profile Image */}
-            {/* Vtuber, Artist Selection */}
-            {/* Primary Language Selection */}
-            {/* Primary Tag Selection */}
-            {/* Primary Platform */}
         </Grid>
     )
 }
