@@ -15,24 +15,19 @@ import Typography from '@mui/material/Typography'
 import { useMutation } from '@apollo/client';
 // Import Assets
 import Auth from '../utils/auth';
-import { AuthContext } from '../utils/auth'
+import { AuthContext } from '../utils/auth';
 import { LOGIN_USER } from '../utils/mutations';
 import Copyright from '../props/Copyright';
 
 
 export default function Login() {
-  const context = useContext(AuthContext);
   const [userLoginInput, setFormState] = useState({
       email: '',
       password: '',
   });
-  
-  const [login, {error, data}] = useMutation(LOGIN_USER, {
-    // variables: {
-    //   UserLoginInput: loginInput
-    // }
-  })
-  
+    
+  const [login, {error, data}] = useMutation(LOGIN_USER);
+
   const handleChange = (event) => {
       const { name, value } = event.target;
 
@@ -42,18 +37,26 @@ export default function Login() {
       });
   }
 
+  // function setUserContext() {
+  //   if (Auth.loggedIn()) {
+  //     const userData = Auth.getProfile().data
+  //     context.login(userData);
+  //   }
+  // }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(userLoginInput);
     // const data = new FormData(event.currentTarget);
     try {
-        const { data } = await login({
-            variables: {
-              userLoginInput: { ...userLoginInput },
-            },
-        });
-        console.log(data);
-        Auth.login(data.login.token);
+      const { data } = await login({
+          variables: {
+            userLoginInput: { ...userLoginInput },
+          },
+      });
+      console.log(data);
+      Auth.login(data.login.token);
+      // setUserContext();     
     } catch (e) {
         console.error(e);
     };
@@ -63,8 +66,6 @@ export default function Login() {
       password: '',
     });
   };
-
-
 
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
@@ -144,5 +145,5 @@ export default function Login() {
         </Box>
       </Grid>
     </Grid>    
-  );
+  )
 }

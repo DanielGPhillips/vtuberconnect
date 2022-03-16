@@ -3,6 +3,7 @@ const { User } = require('../../models');
 
 const { Post } = require('../../models/');
 const checkAuth = require('../../utils/checkAuth');
+const { authMiddleware } = require('../../utils/auth')
 
 module.exports = {
     Query: {
@@ -41,27 +42,31 @@ module.exports = {
         },
     },
     Mutation: {
-        async createPost(_, { body }, context) {
-            const user = checkAuth(context);
-
-            if (body.trim() === '') {
-                throw new Error("Post must not be empty!")
-            }
+        async createPost(_, {createPostInput: { body, imageFlag, image } }, context) {
+            const  author = authMiddleware(context);
+            console.log(author);
+            // if (body.trim() === '') {
+            //     throw new Error("Post must not be empty!")
+            // }
 
             const newPost = new Post({
                 body,
-                author: user.id,
-                username: user.username,
+                imageFlag,
+                image,
+                author,
                 createdAt: new Date().toISOString()
             });
 
-            const post = await newPost.save();
+            const res = await newPost.save();
+            console.log(res);
+            // context.pubsub.asyncIterator('NEW_POST', {
+            //     newPost: post
+            // });
 
-            context.pubsub.publish('NEW_POST', {
-                newPost: post
-            });
-
-            return post;
+            return {
+                ...res._doc,
+                id: res._id,
+            };
         },
         async deletePost(_, { postId }, context) {
             const user = checkAuth(context);

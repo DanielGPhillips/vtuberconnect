@@ -32,13 +32,16 @@ export default function PostCreate() {
     const [createPost, { error, data }] = useMutation(CREATE_POST);
 
     function getUser() {
-        if (Auth.loggedIn()) {
+        if (Auth.loggedIn() === true) {
           const user = Auth.getProfile().data
           return user;
+        } else {
+            return 'No User'
         }
-      }
+    }
     const user = getUser();
     const id = user.id;
+    
 
     const handleChange = (event) => {
         const { name,value } = event.target;
@@ -51,8 +54,7 @@ export default function PostCreate() {
     const imageSelectedHandler = event => {
         if (event.target.files[0]) {
             setImageSelection(event.target.files[0]);
-        }
-        console.log('potato');     
+        }    
     }
 
     const imageUploadHandler = () => {
@@ -89,10 +91,10 @@ export default function PostCreate() {
 
             },
             () => {
-                    getDownloadURL(uploadTask.snapshot.ref). then((downloadURL) => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
                         setPostInput({
                             imageFlag: true,
-                            image: {downloadURL}
+                            image: downloadUrl,
                         })
                     })
                 }
@@ -102,16 +104,14 @@ export default function PostCreate() {
 
     const handlePostSubmit = async (event) => {
         event.preventDefault();
-        console.log(postInput);
         try {
-            imageUploadHandler();
+            imageUploadHandler()
             await createPost({
                 variables: {
                     createPostInput: { ...postInput },
                 }
-            });
-            
-            Auth.loggedIn()
+            })
+            // Auth.loggedIn()
         } catch (e) {
             console.error(e);
         }
@@ -150,7 +150,6 @@ export default function PostCreate() {
                         mt={6}
                         sx={{ width:'95%'}}
                         />
-                        <img src={imageSelection} />
                     </Grid>
                 </Grid>
 

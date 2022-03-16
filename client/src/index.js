@@ -14,11 +14,8 @@ import {
   HttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-// Firebase Import
-import { Storage } from './firebase/index'
 //Resource Import
 import App from './App';
-import { AuthProvider} from './utils/auth';
 // WebVitals Import
 import reportWebVitals from './reportWebVitals';
 
@@ -65,10 +62,8 @@ ReactDOM.render(
     <ApolloProvider client={client}>
         <StyledEngineProvider injectFirst>     
           <ThemeProvider theme={theme}>
-          <CssBaseline />
-            <AuthProvider>
-              <App />
-            </AuthProvider> 
+          <CssBaseline />            
+              <App />            
           </ThemeProvider>                
         </StyledEngineProvider>
     </ApolloProvider>

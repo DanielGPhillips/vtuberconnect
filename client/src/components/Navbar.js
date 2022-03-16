@@ -239,8 +239,7 @@ export default function NavbarCombo() {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }}/>
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            {}
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>            
             {Auth.loggedIn() ? (
               <>
                 <IconButton size="large" aria-label='home' color='inherit' component= { Link } to="/">
