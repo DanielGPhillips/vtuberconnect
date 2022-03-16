@@ -13,6 +13,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_PROFILE } from '../../utils/mutations';
 import AddProfilePicture from './AddProfilePicture';
 import AddProfileBanner from './AddProfileBanner';
+import Auth from '../../utils/auth';
 
 
 
@@ -36,8 +37,34 @@ function ProfileGenerator() {
         console.log(profileInput);
     };    
     
-    const handleProfileSubmit = (event) => {
-        event.preventDefault()
+    function getId() {
+        if (Auth.loggedIn()) {
+            const id = Auth.getProfile('id_token').data.id
+            return id;
+        }
+    };
+
+    const id = getId();
+
+    const handleProfileSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            await addProfile({
+                variables: {
+                    profileInput: { ...profileInput },
+                    userId: id,
+                }
+            });
+            Auth.loggedIn();
+        } catch (e) {
+            console.log(e);
+        };
+        setFormState({
+            about: '',
+            primaryPlatform: '',    
+            primaryLanguage: '',
+            primaryTag: '',
+        })
     }
 
     return (
@@ -59,12 +86,12 @@ function ProfileGenerator() {
                             fullWidth 
                             id="aboutMe" 
                             label="About Me" 
-                            name="aboutMe"
+                            name="about"
                             value={profileInput.about}
                             onChange={handleChange}
                         />
                         <Typography component="h2" variant="h6">
-                            Where do you predominantly hang out...
+                            Where do you predominantly hang out... ex. YouTube, Twitch, Twitter, etc.
                         </Typography>
                         <TextField 
                             margin="normal" 

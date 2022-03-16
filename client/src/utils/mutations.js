@@ -24,13 +24,15 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_PROFILE = gql`
-  mutation addProfile($name: String!, $email: String!, $password: String!) {
-    addProfile(name: $name, email: $email, password: $password) {
-      token
-      profile {
-        _id
-        name
-      }
+  mutation addProfile($userId: ID!, $profileInput: ProfileInput) {
+    addProfile(userId: $userId, profileInput: $profileInput) {
+      username
+      profilePicture
+      profileBanner
+      primaryTag
+      primaryPlatform
+      primaryLanguage
+      about
     }
   }
 `;

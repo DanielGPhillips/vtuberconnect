@@ -201,7 +201,7 @@ const typeDefs = gql`
 
   type Mutation {
     signUp(signUpInput: SignUpInput): User!
-    createProfile(userId: ID!, profileInput: ProfileInput): User!
+    addProfile(userId: ID!, profileInput: ProfileInput): User!
     addPfp(userId: ID!, profilePicture: String!): User
     addProfileBanner(userId: ID!, profileBanner: String!): User
     createArtist(artistInput: ArtistInput): Artist!

@@ -16,10 +16,12 @@ import { styled } from '@mui/material/styles';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 // Firebase Import
 import { storage } from '../firebase';
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 // Resource Import
+import moment from 'moment';
 import { CREATE_POST } from '../utils/mutations';
 import Auth from '../utils/auth';
-import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+
 
 const Input = styled('input')({
     // visibility: 'hidden',
@@ -59,8 +61,8 @@ export default function PostCreate() {
 
     const imageUploadHandler = () => {
         if (imageSelection !== null ) {
-            const moment = Date.now   
-            const storageRef = ref(storage, 'postImages/' + id + moment)
+            const now = moment().format()  
+            const storageRef = ref(storage, 'postImages/' + id + now)
             const uploadTask = uploadBytesResumable(storageRef, imageSelection);
 
             uploadTask.on('state changed',

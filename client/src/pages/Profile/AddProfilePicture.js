@@ -11,10 +11,12 @@ import Input from '@mui/material/Input';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 // Firebase Import 
 import { storage } from '../../firebase';
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 // Resource import
+import moment from 'moment';
 import { ADD_PFP } from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage' 
+ 
 
 
 function AddProfilePicture() {
@@ -39,8 +41,8 @@ function AddProfilePicture() {
 
     const pfpUploadHandler = () => {
         if (pfpSelection !== null ) {
-            const moment = Date.now   
-            const storageRef = ref(storage, 'profileImages/' + id + moment)
+            const now = moment().format();   
+            const storageRef = ref(storage, 'profileImages/' + id + now)
             const uploadTask = uploadBytesResumable(storageRef, pfpSelection);
 
             uploadTask.on('state changed',

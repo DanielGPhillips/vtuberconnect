@@ -2,7 +2,7 @@ const { AuthenticationError, UserInputError } = require('apollo-server-express')
 
 const checkAuth = require('../../utils/checkAuth');
 const Profile = require('../../models/Profile');
-const { Artist, Vtuber } = require('../../models');
+const { Artist, Vtuber, User } = require('../../models');
 
 module.exports = {
     Query: {
@@ -37,24 +37,14 @@ module.exports = {
         }
     },
     Mutation: {
-        async createProfile(_, { profileInput: {profilePicture, profileBanner, vtuber, artist, primaryTag, primaryPlatform, primaryLanguage, about}}, context) {
-            const user = checkAuth(context);
-
-            const newProfile = new Profile({
-                userId: user.id,
-                profilePicture,
-                profileBanner,
-                vtuber,
-                artist,
-                primaryTag,
-                primaryPlatform,
-                primaryLanguage,
-                about,
-            })
-
-            const profile = await newProfile.save()
-
-            return profile;
+        async createProfile(_, { userId, profileInput: { primaryTag, primaryPlatform, primaryLanguage, about}}, context) {
+            if (context.user) {
+                const filer = { _id: userId };
+                const update= { primaryTag: primaryTag, primaryPlatform: primaryPlatform, primaryLanguage: primaryLanguage, about: about};
+                const opts = { new: true };
+                return User.findOneAndUpdate(filter, update, opts);
+            }
+            throw new AuthenticationError('You need to be logged in to do this.')
         },
         
         async createArtist(_, {artistInput: {}}, context) {
