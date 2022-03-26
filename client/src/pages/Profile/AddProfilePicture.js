@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 // MUI Import
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
@@ -38,10 +39,11 @@ function AddProfilePicture() {
             setPfpSelection(event.target.files[0]);
         }     
     };
+     
 
-    const pfpUploadHandler = () => {
+    const pfpUploadHandler = (event) => {
         if (pfpSelection !== null ) {
-            const now = moment().format();   
+            const now = moment().format('x'); 
             const storageRef = ref(storage, 'profileImages/' + id + now)
             const uploadTask = uploadBytesResumable(storageRef, pfpSelection);
 
@@ -76,8 +78,10 @@ function AddProfilePicture() {
                     getDownloadURL(uploadTask.snapshot.ref). then((downloadUrl) => {
                         setPfpState({
                             userId: id,
-                            profilePicture: downloadUrl
+                            profilePicture: downloadUrl,
                         })
+                        console.log(pfpState);
+                        console.log(downloadUrl)
                     })
                 }
             )
@@ -87,8 +91,8 @@ function AddProfilePicture() {
 
     const handlePfpSubmit = async (event) => {
         event.preventDefault();
+        // pfpUploadHandler();
         try {
-            pfpUploadHandler();
             await addPfp({
                 variables: { ...pfpState }
             });
@@ -119,9 +123,13 @@ function AddProfilePicture() {
                             onChange={pfpSelectedHandler} 
                             />
                         </label>
-                        <IconButton color="primary" aria-label="upload picture" component="span" onClick={handlePfpSubmit}>
+                        <IconButton color="primary" aria-label="choose picture" component="span" onClick={pfpUploadHandler}>
                             <PhotoCamera />
+                            Set Photo
                         </IconButton>
+                        <Button color="primary" variant="contained" aria-label="save picture" component="span" onClick={handlePfpSubmit}>
+                            Save
+                        </Button>
                     </Grid>
                 </Grid>
             </Grid>

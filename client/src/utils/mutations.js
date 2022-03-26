@@ -24,11 +24,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_PROFILE = gql`
-  mutation addProfile($userId: ID!, $profileInput: ProfileInput) {
-    addProfile(userId: $userId, profileInput: $profileInput) {
-      username
-      profilePicture
-      profileBanner
+  mutation addProfile( $profileInput: ProfileInput, $userId: ID!) {
+    addProfile( profileInput: $profileInput, userId: $userId) {
       primaryTag
       primaryPlatform
       primaryLanguage

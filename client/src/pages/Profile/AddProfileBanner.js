@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 // MUI Icon Import
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
@@ -38,9 +39,9 @@ function AddProfileBanner() {
         }     
     };
 
-    const profileBannerUploadHandler = () => {
+    const profileBannerUploadHandler = (event) => {
         if (profileBannerSelection !== null ) {
-            const now = moment().format();   
+            const now = moment().format('x');   
             const storageRef = ref(storage, 'profileImages/' + id + now)
             const uploadTask = uploadBytesResumable(storageRef, profileBannerSelection);
 
@@ -75,8 +76,10 @@ function AddProfileBanner() {
                     getDownloadURL(uploadTask.snapshot.ref). then((downloadUrl) => {
                         setProfileBannerState({
                             userId: id,
-                            profileBanner: downloadUrl
+                            profileBanner: downloadUrl,
                         })
+                        console.log(profileBannerState);
+                        console.log(downloadUrl)
                     })
                 }
             )
@@ -87,7 +90,7 @@ function AddProfileBanner() {
     const handleProfileBannerSubmit = async (event) => {
         event.preventDefault();
         try {
-            profileBannerUploadHandler();
+            // profileBannerUploadHandler();
             await addProfileBanner({
                 variables: { ...profileBannerState }
             });
@@ -118,9 +121,13 @@ function AddProfileBanner() {
                             onChange={profileBannerSelectedHandler} 
                             />
                         </label>
-                        <IconButton color="primary" aria-label="upload picture" component="span" onClick={handleProfileBannerSubmit}>
+                        <IconButton color="primary" aria-label="upload picture" component="span" onClick={profileBannerUploadHandler}>
                             <PhotoCamera />
+                            Set Photo
                         </IconButton>
+                        <Button color="primary" variant="contained" aria-label="save picture" component="span" onClick={handleProfileBannerSubmit}>
+                            Save
+                        </Button>
                     </Grid>
                 </Grid>
             </Grid>

@@ -84,9 +84,9 @@ const resolvers = {
     //   };
     // },
 
-    addProfile: async (parent, { name }) => {
-      return Profile.create({ name });
-    },
+    // addProfile: async (parent, { name }) => {
+    //   return Profile.create({ name });
+    // },
     addSkill: async (parent, { profileId, skill }) => {
       return Profile.findOneAndUpdate(
         { _id: profileId },

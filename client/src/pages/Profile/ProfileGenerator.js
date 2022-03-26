@@ -34,7 +34,6 @@ function ProfileGenerator() {
           ...profileInput,
           [name]: value,
         });
-        console.log(profileInput);
     };    
     
     function getId() {
@@ -45,16 +44,18 @@ function ProfileGenerator() {
     };
 
     const id = getId();
+    
 
     const handleProfileSubmit = async (event) => {
         event.preventDefault();
         try {
-            await addProfile({
-                variables: {
-                    profileInput: { ...profileInput },
-                    userId: id,
-                }
+            const { data } = await addProfile({
+                variables: { 
+                    profileInput: {...profileInput},
+                    userId: id 
+                },  
             });
+            console.log(data);
             Auth.loggedIn();
         } catch (e) {
             console.log(e);

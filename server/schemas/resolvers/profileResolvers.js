@@ -37,14 +37,31 @@ module.exports = {
         }
     },
     Mutation: {
-        async createProfile(_, { userId, profileInput: { primaryTag, primaryPlatform, primaryLanguage, about}}, context) {
-            if (context.user) {
-                const filer = { _id: userId };
-                const update= { primaryTag: primaryTag, primaryPlatform: primaryPlatform, primaryLanguage: primaryLanguage, about: about};
-                const opts = { new: true };
-                return User.findOneAndUpdate(filter, update, opts);
-            }
-            throw new AuthenticationError('You need to be logged in to do this.')
+        async addProfile(_, { userId, primaryTag, primaryPlatform, primaryLanguage, about}, context) {
+            return new Promise((resolve, reject) => {
+                User.findOneAndUpdate({
+                    "_id": userId
+                    }, {                    
+                    "primaryTag": primaryTag,
+                    "primaryPlatform": primaryPlatform,
+                    "primaryLanguage": primaryLanguage,
+                    "about": about,                     
+                    }, {
+                    new: true
+                    })
+                    .then((result) => {
+                        return resolve(result);
+                    })
+                    .catch((err) => {
+                        return reject(err);
+                    })
+                    .then ((finalResult) => {
+                        return finalResult;
+                    })
+                    .catch((err) => {
+                        return err
+                    })
+            })            
         },
         
         async createArtist(_, {artistInput: {}}, context) {

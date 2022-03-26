@@ -38,12 +38,6 @@ const typeDefs = gql`
     password: String!
   }
   
-  type Profile {
-    id: ID!
-    userId: User!
-    
-  }
-
   input ProfileInput {
     primaryTag: String
     primaryPlatform: String
@@ -201,7 +195,7 @@ const typeDefs = gql`
 
   type Mutation {
     signUp(signUpInput: SignUpInput): User!
-    addProfile(userId: ID!, profileInput: ProfileInput): User!
+    addProfile(userId: ID!, primaryTag: String, primaryPlatform: String, primaryLanguage: String, about: String): User
     addPfp(userId: ID!, profilePicture: String!): User
     addProfileBanner(userId: ID!, profileBanner: String!): User
     createArtist(artistInput: ArtistInput): Artist!
